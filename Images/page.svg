@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="960px" height="560px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M112.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 92.3828 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">0</text>
+</g>
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M163.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 142.7162 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">1</text>
+</g>
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M213.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 194.0495 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">2</text>
+</g>
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M264.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 244.3828 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">3</text>
+</g>
+<text transform="matrix(1 0 0 1 124.6075 127.3039)"><tspan x="0" y="0" font-family="'AdobeSongStd-Light'" font-size="24">栈</tspan><tspan x="24" y="0" font-family="'AdobeSongStd-Light'" font-size="14">(后进先出)</tspan></text>
+<text transform="matrix(1 0 0 1 231.8354 267.9281)" font-family="'Consolas'" font-size="14">push()</text>
+<text transform="matrix(1 0 0 1 235.6328 151.5952)" font-family="'Consolas'" font-size="14">pop()</text>
+<g>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="248.5" y1="227" x2="248.5" y2="257"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="248.409" y1="227.341" x2="240.909" y2="234.841"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="248.611" y1="227.345" x2="256.111" y2="234.845"/>
+</g>
+<g>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="248.5" y1="156" x2="248.5" y2="186"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="248.409" y1="156.341" x2="240.909" y2="163.841"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="248.611" y1="156.345" x2="256.111" y2="163.845"/>
+</g>
+<text transform="matrix(1 0 0 1 252.6665 249.3332)" font-family="'SimSun'" font-size="10">添加</text>
+<text transform="matrix(1 0 0 1 252.6665 175.3332)" font-family="'SimSun'" font-size="10">移除</text>
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M443.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 423.3828 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">0</text>
+</g>
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M494.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 473.7162 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">1</text>
+</g>
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M544.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 525.0494 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">2</text>
+</g>
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M595.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 575.3828 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">3</text>
+</g>
+<text transform="matrix(1 0 0 1 455.6075 127.3039)"><tspan x="0" y="0" font-family="'AdobeSongStd-Light'" font-size="24">队列</tspan><tspan x="48" y="0" font-family="'AdobeSongStd-Light'" font-size="14">(先进先出)</tspan></text>
+<text transform="matrix(1 0 0 1 562.8353 267.9281)" font-family="'Consolas'" font-size="14">push()</text>
+<text transform="matrix(1 0 0 1 405.6328 152.5952)" font-family="'Consolas'" font-size="14">shift()</text>
+<g>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="579.5" y1="227" x2="579.5" y2="257"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="579.409" y1="227.341" x2="571.909" y2="234.841"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="579.611" y1="227.345" x2="587.111" y2="234.845"/>
+</g>
+<g>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="425.5" y1="156" x2="425.5" y2="186"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="425.472" y1="156.341" x2="417.972" y2="163.841"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="425.674" y1="156.345" x2="433.174" y2="163.845"/>
+</g>
+<text transform="matrix(1 0 0 1 583.6665 249.3332)" font-family="'SimSun'" font-size="10">添加</text>
+<text transform="matrix(1 0 0 1 429.6665 175.3332)" font-family="'SimSun'" font-size="10">移除</text>
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M726.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 706.3828 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">0</text>
+</g>
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M777.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 756.7162 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">1</text>
+</g>
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M827.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 808.0494 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">2</text>
+</g>
+<g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M878.5,218.5c0,2.761-2.239,5-5,5h-24c-2.761,0-5-2.239-5-5v-24
+		c0-2.761,2.239-5,5-5h24c2.761,0,5,2.239,5,5V218.5z"/>
+	<text transform="matrix(1 0 0 1 858.3828 210.9895)" font-family="'AdobeSongStd-Light'" font-size="12">3</text>
+</g>
+<text transform="matrix(1 0 0 1 738.6075 127.3039)" font-family="'AdobeSongStd-Light'" font-size="24">反队列</text>
+<text transform="matrix(1 0 0 1 845.8353 150.9281)" font-family="'Consolas'" font-size="14">pop()</text>
+<text transform="matrix(1 0 0 1 685.6328 270.0952)" font-family="'Consolas'" font-size="14">unshift()</text>
+<g>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="862.5" y1="156" x2="862.5" y2="186"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="862.409" y1="156.341" x2="854.909" y2="163.841"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="862.611" y1="156.345" x2="870.111" y2="163.845"/>
+</g>
+<g>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="708.5" y1="227" x2="708.5" y2="257"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="708.472" y1="227.341" x2="700.972" y2="234.841"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="708.674" y1="227.345" x2="716.174" y2="234.845"/>
+</g>
+<text transform="matrix(1 0 0 1 866.6665 178.3332)" font-family="'SimSun'" font-size="10">移除</text>
+<text transform="matrix(1 0 0 1 712.6665 246.3332)" font-family="'SimSun'" font-size="10">添加</text>
+</svg>

@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="web前端、前端工程师">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="为了便于操作基本类型值，ECMAScript 提供了 3 个特殊的引用类型： Boolean、 Number 和 String。这些类型与其他引用类型相似，但同时也具有与各自的基本类型相应的特殊行为。实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。 12var s1 = &amp;apos;some text&amp;apos;; // 字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基本包装类型">
+<meta property="og:url" content="http://spumpkinblog.com/2017/11/20/基本包装类型/index.html">
+<meta property="og:site_name" content="Spumpkin&#39;s blog">
+<meta property="og:description" content="为了便于操作基本类型值，ECMAScript 提供了 3 个特殊的引用类型： Boolean、 Number 和 String。这些类型与其他引用类型相似，但同时也具有与各自的基本类型相应的特殊行为。实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。 12var s1 = &amp;apos;some text&amp;apos;; // 字">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-10T11:19:55.997Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基本包装类型">
+<meta name="twitter:description" content="为了便于操作基本类型值，ECMAScript 提供了 3 个特殊的引用类型： Boolean、 Number 和 String。这些类型与其他引用类型相似，但同时也具有与各自的基本类型相应的特殊行为。实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。 12var s1 = &amp;apos;some text&amp;apos;; // 字">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://spumpkinblog.com/2017/11/20/基本包装类型/">
+
+
+
+
+
+  <title>基本包装类型 | Spumpkin's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?51393b20fed55da5e73d0255cf2eebcc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Spumpkin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">努力搬砖</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://spumpkinblog.com/2017/11/20/基本包装类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Spumpkin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Spumpkin's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基本包装类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-20T20:11:32+08:00">
+                2017-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/11/20/基本包装类型/" class="leancloud_visitors" data-flag-title="基本包装类型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                   分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>为了便于操作基本类型值，ECMAScript 提供了 3 个特殊的引用类型： Boolean、 Number 和 String。<br>这些类型与其他引用类型相似，但同时也具有与各自的基本类型相应的特殊行为。<br>实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var s1 = &apos;some text&apos;; // 字符串是基本类型值，并不是对象</span><br><span class="line">var s2 = s1.substring(2);</span><br></pre></td></tr></table></figure>
+<p>当第二行代码访问 s1 时，访问过程处于一种读取模式，也就是要从内存中读取这个字符串的值。而读取模式中访问字符串时，后台都会自动完成下列处理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">（1）创建 String 类型的一个实例;</span><br><span class="line">（2）在实例上调用指定的方法;</span><br><span class="line">（3）销毁这个实例。</span><br><span class="line"></span><br><span class="line">var s1 = new String(&apos;some text&apos;); // 基本类型实例</span><br><span class="line">var s2 = s1.substring(2);</span><br><span class="line">s1 = null;</span><br></pre></td></tr></table></figure></p>
+<p>引用类型与基本包装类型的主要区别就是对象的生存期。<br>使用 new 操作符创建的引用类型的实例，在执行流离开当前作用域之前都一直保存在内存中。而自动创建的基本包装类型的对象，则只存在于一行代码的执行瞬间，然后立即被销毁。<br>这意味着我们不能在运行时为基本类型值添加属性和方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var s1 = &apos;some text&apos;;</span><br><span class="line">s1.color = &apos;red&apos;; </span><br><span class="line">alert(s1.color); // undefined</span><br></pre></td></tr></table></figure>
+<p>第二行创建的 String 对象在执行到第三行代码时已经被销毁了。<br>第三行代码又创建了自己的 String 对象，而该对象没有 color 属性。</p>
+<p>可以显式地调用 Boolean、 Number 和 String 来创建基本包装类型的对象。<br>但是这种做法很容易让人分不清自己是在处理基本类型还是引用类型的值。</p>
+<font style="color: red">对基本包装类型的实例调用 typeof 会返回 “object”，而且所有基本包装类型的对象都会被转换为布尔值 true。 </font>
+
+<p>Obeject 构造函数也像工厂方法一样，根据传入值的类型返回相应基本包装类型的实例。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var obj = new Object(&apos;some text&apos;); // 自动创建 String 的实例</span><br><span class="line">alert(obj instanceof String); // true</span><br></pre></td></tr></table></figure></p>
+<p>注意：使用 new 调用基本包装类型的构造函数，与直接调用同名的转型函数是不一样的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var value = &apos;25&apos;;</span><br><span class="line">var number = Number(value);  // 转型函数 保存的是基本类型</span><br><span class="line">alert(typeof number);        // number</span><br><span class="line"></span><br><span class="line">var obj = new Number(value); // 构造函数 保存的是 Number 的实例</span><br><span class="line">alert(typeof obj);           // object</span><br></pre></td></tr></table></figure></p>
+<h2 id="Boolean-类型"><a href="#Boolean-类型" class="headerlink" title="Boolean 类型"></a>Boolean 类型</h2><p>Boolean 类型是与布尔值对应的引用类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var booleanObject = new Boolean();     // 默认是 false</span><br><span class="line">var booleanObject = new Boolean(true); // true</span><br></pre></td></tr></table></figure></p>
+<p>Boolean 类型的实例重写了 valueOf() 方法，返回基本类型值 true 或 false，重写了 toString() 方法，返回字符串 “true” 或 “false”。</p>
+<p>Boolean 对象在 ECMAScript 中的用处不大，因为它常会造成人们的误解。<br>最常见的问题就是在布尔表达式中使用 Boolean 对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var falseObject = new Boolean(false);</span><br><span class="line">// 与基本类型值 true 构成了逻辑与表达式</span><br><span class="line">var result = falseObject &amp;&amp; true; // 基本包装类型的对象都会被转换成布尔值的 true</span><br><span class="line">alert(result); // true</span><br><span class="line"></span><br><span class="line">var falseValue = false;</span><br><span class="line">// 布尔运算中，false &amp;&amp; true 等于 false</span><br><span class="line">result = falseValue &amp;&amp; true;</span><br><span class="line">alert(result); // false</span><br></pre></td></tr></table></figure>
+<p>基本类型与引用类型的布尔值有两个区别：</p>
+<ul>
+<li>tyoeof 操作符对基本类型返回 “boolean”，而对引用类型返回 “object”</li>
+<li>由于 Boolean 对象是 Boolean 类型的实例，所以使用 instanceof 操作符测试 Boolean 对象会返回 true，而测试基本类型的布尔值则返回 false。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alert(typeof falseObject); // object</span><br><span class="line">alert(typeof falseValue);  // boolean</span><br><span class="line">alert(falseObject instanceof Boolean); // true</span><br><span class="line">alert(falseValue instanceof Boolean);  // false</span><br></pre></td></tr></table></figure>
+<p>理解基本类型的布尔值与 Boolean 对象之间的区别非常重要——当然，建议是永远不要使用 Boolean 对象。</p>
+<h2 id="Number-类型"><a href="#Number-类型" class="headerlink" title="Number 类型"></a>Number 类型</h2><p>Number 是与数字值对应的引用类型、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 创建 Number 对象，同时给 Number 构造函数传递响应的数值</span><br><span class="line">var numberObject = new Number(10);</span><br></pre></td></tr></table></figure>
+<p>Number 类型也重写后 valueOf() 方法返回对象表示的基本类型的数值，另外两个 toLocaleString() 和 toString() 方法返回字符串形式的数值。</p>
+<p>可以为 toString() 方法传递一个表示基数的参数，告诉它返回几进制数值的字符串形式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var num = 10;</span><br><span class="line">alert(num.toString());   // &quot;10&quot;</span><br><span class="line">alert(num.toString(2));  // &quot;1010&quot;</span><br><span class="line">alert(num.toString(8));  // &quot;12&quot;</span><br><span class="line">alert(num.toString(10)); // &quot;10&quot;</span><br><span class="line">alert(num.toString(16)); // &quot;a&quot;</span><br></pre></td></tr></table></figure>
+<p>除了继承的方法之外， Number 类型还提供了一些用于将数值格式化为字符串的方法。</p>
+<h3 id="toFixed-方法"><a href="#toFixed-方法" class="headerlink" title="toFixed() 方法"></a>toFixed() 方法</h3><p>toFixed() 方法会按照指定的小数位返回数值的字符串表示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var num = 10;</span><br><span class="line">alert(num.toFixed(2)); // &apos;10.00&apos;</span><br><span class="line"></span><br><span class="line">// 如果数值本身包含的小数位比指定的多，则接近指定的最大小数位的值就会舍入</span><br><span class="line">var num = 10.005;</span><br><span class="line">alert(num.toFixed(2)); // &apos;10.01&apos;</span><br></pre></td></tr></table></figure></p>
+<h3 id="toExponential-方法"><a href="#toExponential-方法" class="headerlink" title="toExponential() 方法"></a>toExponential() 方法</h3><p>toExponential() 方法返回指数表示法（也称 e 表示法）的字符串表示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 一般用来表示数值比较大的数</span><br><span class="line">var num = 10;</span><br><span class="line">alert(num.toExponential(1)); // &apos;1.0e+1&apos;</span><br></pre></td></tr></table></figure></p>
+<h3 id="toPrecision-方法"><a href="#toPrecision-方法" class="headerlink" title="toPrecision() 方法"></a>toPrecision() 方法</h3><p>对于一个数值来说，toPrecision() 方法可能会返回固定大小（fixed）格式，也可能返回指数（exponential）格式。<br>该方法接收一个参数，即表示数值的所有数字的位数（不包括指数部分）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var num = 99;</span><br><span class="line">alert(num.toPrecision(1)); // &apos;1e+2&apos; 1 乘以 10 的 2 次方</span><br><span class="line">alert(num.toPrecision(2)); // &apos;99&apos;</span><br><span class="line">alert(num.toPrecision(3)); // &apos;99.0&apos;</span><br></pre></td></tr></table></figure>
+<p>与 Boolean 对象类似，不建议直接实例化 Number 类型，原因与显创建 Boolean 对象一样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var numberObject = new Number(10);</span><br><span class="line">var numberValue = 10;</span><br><span class="line"></span><br><span class="line">alert(typeof numberObject); // &apos;object&apos;</span><br><span class="line">alert(typeof numberValue);  // &apos;number&apos;</span><br><span class="line">alert(numberObject instanceof Number); // true</span><br><span class="line">alert(numberValue instanceof Number);  // false</span><br></pre></td></tr></table></figure></p>
+<h2 id="String-类型"><a href="#String-类型" class="headerlink" title="String 类型"></a>String 类型</h2><p>String 对象的方法也可以在所有基本的字符串只中访问到。<br>继承的 valueOf()、toLocaleString() 和 toString() 方法，都返回对象所表示的基本字符串值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 使用 String 构造函数来创建</span><br><span class="line">var stringObject = new String(&apos;hello world&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>String 类型的每个实例都有一个 length 属性，表示字符串中包含多个字符。<br>即使字符串中包含双字节字符（不是占一个字节的 ASCⅡ 字符），每个字符也仍然算一个字符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;hello world&apos;;</span><br><span class="line">alert(stringValue.length); // &apos;11&apos;</span><br><span class="line"></span><br><span class="line">// 单字节指只占一个字，是英文字符。双字是占两个字节的，中文字符都占两个字节。</span><br><span class="line">var stringValue = &apos;嗨 world&apos;;</span><br><span class="line">alert(stringValue.length); // &apos;7&apos;</span><br></pre></td></tr></table></figure></p>
+<h2 id="字符方法"><a href="#字符方法" class="headerlink" title="字符方法"></a>字符方法</h2><h3 id="charAt-和-charCodeAt-方法"><a href="#charAt-和-charCodeAt-方法" class="headerlink" title="charAt() 和 charCodeAt() 方法"></a>charAt() 和 charCodeAt() 方法</h3><p>这两个方法都接收一个参数，即基于 0 的字符位置。<br>charAt() 方法以单字符字符串的形式返回给定位置的那个字符（ECMAScript 中没有字符类型）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;hello world&apos;;</span><br><span class="line">alert(stringValue.charAt(1)); // &apos;e&apos;</span><br><span class="line"></span><br><span class="line">// 如果想返回的是字符编码</span><br><span class="line">var stringValue = &apos;hello world&apos;;</span><br><span class="line">alert(stringValue.charCodeAt(1)); // &apos;101&apos; 小写字母 &apos;e&apos; 的字符编码</span><br></pre></td></tr></table></figure></p>
+<p>ECMAScript 5 还定义了另一个访问个别字符的方法。<br>可以使用方括号加数字索引来访问字符串中的特定字符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;hello world&apos;;</span><br><span class="line">alert(stringValue[1]); // &apos;e&apos;</span><br></pre></td></tr></table></figure></p>
+<p>支持浏览器有 IE8+ 以及各主流浏览器，早起版本使用将会返回 undefined 值。</p>
+<h2 id="字符串操作方法"><a href="#字符串操作方法" class="headerlink" title="字符串操作方法"></a>字符串操作方法</h2><h3 id="concat-方法"><a href="#concat-方法" class="headerlink" title="concat() 方法"></a>concat() 方法</h3><p>concat() 方法用于将一或多个字符串拼接起来，返回拼接得到的新字符串。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;hello &apos;;</span><br><span class="line">var result = stringValue.concat(&apos;world&apos;);</span><br><span class="line"></span><br><span class="line">alert(result);      // &apos;hello world&apos;</span><br><span class="line">alert(stringValue); // &apos;hello&apos; 对原字符串没有任何影响</span><br><span class="line"></span><br><span class="line">// 拼接多个字符串</span><br><span class="line">var stringValue = &apos;hello &apos;;</span><br><span class="line">var result = stringValue.concat(&apos;world&apos;, &apos;!&apos;);</span><br><span class="line"></span><br><span class="line">alert(result);      // &apos;hello world!&apos;</span><br><span class="line">alert(stringValue); // &apos;hello&apos;</span><br></pre></td></tr></table></figure></p>
+<p>虽然 concat() 是专门用来拼接字符串的方法，但实践中使用更多的还是加号操作符（+）。</p>
+<h3 id="slice-、-substr-、-substring-方法"><a href="#slice-、-substr-、-substring-方法" class="headerlink" title="slice()、 substr()、 substring() 方法"></a>slice()、 substr()、 substring() 方法</h3><p>三个基于子字符串创建新字符串的方法：slice()、 substr()、 substring()<br>这三个方法都会返回被操作字符串的一个子字符串，而且都接收一或两个参数。<br>如果没有传递第二个参数，则将字符串的长度作为结束位置返回。<br>slice(指定子字符串的开始位置，子字符串的最后一个字符后面的位置)<br>substring(指定子字符串的开始位置，子字符串的最后一个字符后面的位置)<br>substr(指定子字符串的开始位置，返回的字符个数)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;hello world&apos;;    // </span><br><span class="line">alert(stringValue.slice(3));        // &apos;lo world&apos;</span><br><span class="line">alert(stringValue.substring(3));    // &apos;lo world&apos;</span><br><span class="line">alert(stringValue.substr(3));       // &apos;lo world&apos;</span><br><span class="line"></span><br><span class="line">alert(stringVlaue.slice(3, 7));     // &apos;lo w&apos;</span><br><span class="line">alert(stringVlaue.substring(3, 7)); // &apos;lo w&apos;</span><br><span class="line">alert(stringVlaue.substr(3, 7));    // &apos;lo worl&apos;</span><br></pre></td></tr></table></figure>
+<p>如果传递的参数是赋值，则：<br>slice() 方法会将传递的负值与字符串的长度相加<br>substring() 方法会将所有的负值参数都转换为 0<br>substr() 方法将负的第一个参数与字符串的长度相加，而负的第二个参数转换为 0 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;hello world&apos;;   </span><br><span class="line">alert(stringValue.slice(-3));        // &apos;rld&apos;</span><br><span class="line">alert(stringValue.substring(-3));    // &apos;hello world&apos;</span><br><span class="line">alert(stringValue.substr(-3));       // &apos;rld&apos;</span><br><span class="line">  </span><br><span class="line">alert(stringVlaue.slice(3, -4));     // &apos;lo w&apos;</span><br><span class="line">alert(stringVlaue.substring(3, -4)); // &apos;hel&apos;</span><br><span class="line">alert(stringVlaue.substr(3, -4));    // &apos;&apos;（空字符串）</span><br></pre></td></tr></table></figure>
+<p>substring(3, -4) 变成 substring(3, 0),但因为这个方法会将较小的数作为开始位置，将较大的数作为结束位置，因此最终相当于调用了 substring(0, 3)。</p>
+<h2 id="字符串位置方法"><a href="#字符串位置方法" class="headerlink" title="字符串位置方法"></a>字符串位置方法</h2><h3 id="indexOf-和-lastIndexOf-方法"><a href="#indexOf-和-lastIndexOf-方法" class="headerlink" title="indexOf() 和 lastIndexOf() 方法"></a>indexOf() 和 lastIndexOf() 方法</h3><p>indexOf() 和 lastIndexOf() 方法都是从一个字符串中搜索给定的子字符串，然后返回子字符串的位置（如果眉头找到该字符串，则返回 -1）。<br>indexOf() 是从字符串的开头向后搜索子字符串。<br>lastIndexOf() 是从字符串的末尾向前搜索子字符串。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;hello world&apos;;</span><br><span class="line">alert(stringValue.indexOf(&apos;o&apos;));     // 4</span><br><span class="line">alert(stringValue.lastIndexOf(&apos;o&apos;)); // 7</span><br><span class="line"></span><br><span class="line">// 第二个参数表示从字符串中的哪个位置开始搜索</span><br><span class="line">alert(stringValue.indexOf(&apos;o&apos;, 6));     // 7</span><br><span class="line">alert(stringValue.lastIndexOf(&apos;o&apos;, 6)); // 4</span><br></pre></td></tr></table></figure></p>
+<p>在使用第二个参数的情况下，可以通过循环调用 indexOf() 或 lastIndexOf() 来找到所有匹配的子字符串。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;hello world&apos;;</span><br><span class="line">var positions = new Array(); // 创建一个数组储存结果</span><br><span class="line">var pos = stringValue.indexOf(&apos;l&apos;); // 获取 &apos;l&apos; 的第一个位置</span><br><span class="line"></span><br><span class="line">while (pos &gt; -1) &#123;</span><br><span class="line">    positions.push(pos); // 将值放进创建的空数组中</span><br><span class="line">    pos = stringValue.indexOf(&apos;l&apos;, pos + 1); // 从搜索到的后一个位置继续开始搜索</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(positions); // &apos;2,3,9&apos;</span><br></pre></td></tr></table></figure></p>
+<h2 id="trim-方法"><a href="#trim-方法" class="headerlink" title="trim() 方法"></a>trim() 方法</h2><p>ECMAScript 定义了 trim() 方法，这个方法会创建一个字符串的副本，删除前置及后缀的所有空格，然后返回结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;    hello world    &apos;;</span><br><span class="line">var trimmedStringValue = stringValue.trim();</span><br><span class="line">alert(stringValue);        // &apos;    hello world    &apos;</span><br><span class="line">alert(trimmedStringValue); // &apos;hello world&apos;</span><br></pre></td></tr></table></figure></p>
+<p>支持这个方法的浏览器有 IE9+ 以及主流浏览器。</p>
+<h2 id="字符串大小写转换方法"><a href="#字符串大小写转换方法" class="headerlink" title="字符串大小写转换方法"></a>字符串大小写转换方法</h2><p>toLowerCase()、 toUpperCase() 一组经典的大小写转换方法。<br>toLocaleLowerCase()、 toLocaleUpperCase() 针对特定地区的实现。<br>一般来说，在不知道自己的代码将在那种语言环境中运行的情况下，还是使用针对地区的方法稳妥点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;hello world&apos;;</span><br><span class="line">alert(stringValue.toUpperCase()); // &apos;HELLO WORLD&apos;</span><br><span class="line">alert(stringValue.toLowerCase()); // &apos;hello world&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="字符串的模式匹配方法"><a href="#字符串的模式匹配方法" class="headerlink" title="字符串的模式匹配方法"></a>字符串的模式匹配方法</h2><h3 id="match-方法"><a href="#match-方法" class="headerlink" title="match() 方法"></a>match() 方法</h3><p>stringObject.match(searchvalue)<br>stringObject.match(regexp)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 返回指定的值，没有则为 null</span><br><span class="line">var stringValue = &apos;Hello World!&apos;;</span><br><span class="line">alert(stringValue.match(&apos;Hello&apos;)); // Hello</span><br><span class="line">alert(stringValue.match(&apos;hello&apos;)); // null</span><br><span class="line"></span><br><span class="line">// 返回正则表达式的匹配值</span><br><span class="line">var stringValue=&quot;1 plus 2 equal 3&quot;</span><br><span class="line">alert(stringValue.match(/\d+/g)); // 1,2,3</span><br></pre></td></tr></table></figure>
+<h3 id="search-方法"><a href="#search-方法" class="headerlink" title="search() 方法"></a>search() 方法</h3><p>search() 方法返回字符串中第一个匹配项的索引，如果没有找到匹配项，则返回 -1。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 返回匹配项的位置的索引，没有则为 -1</span><br><span class="line">var stringValue = &apos;Hello World!&apos;;</span><br><span class="line">alert(stringValue.search(&apos;Hello&apos;)); // 0</span><br><span class="line">alert(stringValue.search(&apos;hello&apos;)); // -1</span><br><span class="line"></span><br><span class="line">// 返回正则表达式的匹配位置的索引</span><br><span class="line">var stringValue=&quot;plus 2 equal 3&quot;</span><br><span class="line">alert(stringValue.search(/\d+/g)); // 5</span><br></pre></td></tr></table></figure></p>
+<h3 id="replace-方法"><a href="#replace-方法" class="headerlink" title="replace() 方法"></a>replace() 方法</h3><p>replace(RegExp对象或一个字符串，一个字符串或者一个函数)<br>如果第一个参数是字符串，那么只会替换第一个子字符串。要想替换所有的子字符串，唯一的办法就是提供一个正则表达式，而且要指定全局（g）标志。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var text = &apos;cat, bat, sat, fat&apos;;</span><br><span class="line">var result = text.replace(&apos;at&apos;, &apos;ond&apos;);</span><br><span class="line">alert(result); // &apos;cond, bat, sat, fat&apos;</span><br><span class="line"></span><br><span class="line">result = text.replace(/at/g, &apos;ond&apos;);</span><br><span class="line">alert(result); // &apos;cond, bond, sond, fond&apos;</span><br></pre></td></tr></table></figure>
+<p>如果第二个参数是字符串，还可以使用一些特殊的字符序列，将正则表达式操作得到的值插入到结果字符串中。<br>下标列出了 ECMAScript 提供的这些特殊的字符序列。</p>
+<table>
+<thead>
+<tr>
+<th>字符序列</th>
+<th>替换文本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$$</td>
+<td>$</td>
+</tr>
+<tr>
+<td>$&amp;</td>
+<td>匹配整个模式的子字符串。与 RegExp.lastMatch 的值相同</td>
+</tr>
+<tr>
+<td>$’</td>
+<td>匹配的子字符串之前的子字符串。与 RegExp.leftContext 的值相同</td>
+</tr>
+<tr>
+<td>$`</td>
+<td>匹配的子字符串之后的子字符串。与 RegExp.rightContext 的值相同</td>
+</tr>
+<tr>
+<td>$n</td>
+<td>匹配第 n 个捕获组的子字符串，其中 n 等于 0~9。例如，$1 是匹配第一个捕获组的子字符串，$2 是匹配第二个捕获组的子字符串</td>
+</tr>
+<tr>
+<td>$nn</td>
+<td>匹配第 nn 个捕获组的子字符串，其中 n 等于 0~99。例如，$01 是匹配第一个捕获组的子字符串，$02 是匹配第二个捕获组的子</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var text = &apos;cat, bat, sat, fat&apos;;</span><br><span class="line">result = text.replace(/(.at)/g, &apos;word($1)&apos;);</span><br><span class="line">alert(result); // word(cat), word(bat), word(sat), word(fat)</span><br></pre></td></tr></table></figure>
+<p>replace() 方法的第二个参数也可以是一个函数。<br>在只有一个匹配项（即与模式匹配的字符串）的情况下，回向这个函数传递 3 个参数。<br>如果正则表达式定义了多个捕获组的情况下，传递参数依次是模式的匹配项、第一个捕获组的匹配项······，模式匹配项在字符串中的位置，原始字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function(模式的匹配项，模式匹配项在字符串中的位置，原始字符串) &#123;</span><br><span class="line">    执行内容</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function htmlEscape (text) &#123;</span><br><span class="line">    return text.replace(/[&lt;&gt;&quot;&amp;]/g, function(match, post, originalText) &#123;</span><br><span class="line">        switch(match) &#123;</span><br><span class="line">            case &apos;&lt;&apos;:</span><br><span class="line">                return &apos;&amp;lt;&apos;;</span><br><span class="line">            case &apos;&gt;&apos;:</span><br><span class="line">                return &apos;&amp;gt;&apos;;</span><br><span class="line">            case &apos;&amp;&apos;:</span><br><span class="line">                return &apos;&amp;amp;&apos;;</span><br><span class="line">            case &apos;\&quot;&apos;:</span><br><span class="line">                return &apos;&amp;quot;&apos;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(htmlEscape(&apos;&lt;p class=&quot;greeting&quot;&gt;Hello world!&lt;/p&gt;&apos;));</span><br><span class="line">// &amp;lt;p class=&amp;quot;greeting&amp;quot;&amp;gt;Hello world!&amp;lt;/p&amp;gt;</span><br></pre></td></tr></table></figure>
+<h3 id="split-方法"><a href="#split-方法" class="headerlink" title="split() 方法"></a>split() 方法</h3><p>split() 方法可以基于指定的分隔符将一个字符串分割成多个子字符串，并将结果放在一个数组中。<br>split(字符串 或 RegExp 对象，指定数组大小)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var colorText = &apos;red,blue,green&apos;;</span><br><span class="line">var color1 = colorText.split(&apos;,&apos;);      // [&apos;red&apos;,&apos;blue&apos;,&apos;green&apos;]</span><br><span class="line">var color2 = colorText.split(&apos;,&apos;, 2);   // [&apos;red&apos;,&apos;blue&apos;]</span><br></pre></td></tr></table></figure>
+<h2 id="localeCompare-方法"><a href="#localeCompare-方法" class="headerlink" title="localeCompare() 方法"></a>localeCompare() 方法</h2><p>localeCompare() 方法比较两个字符串。26 字母表作为比较标准。</p>
+<ul>
+<li>如果字符串在字母表中应该排在字符串参数之前，则返回一个负数（大多数情况下是 -1）</li>
+<li>如果字符串等于字符串参数，则返回 0</li>
+<li>如果字符串在字母表中应该排在字符串参数之后，则返回一个整数（大多数情况下是 1）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;yellow&apos;;</span><br><span class="line">alert(stringValue.localeCompare(&apos;brick&apos;));  // 1</span><br><span class="line">alert(stringValue.localeCompare(&apos;yellow&apos;)); // 0</span><br><span class="line">alert(stringValue.localeCompare(&apos;zoo&apos;));    // -1</span><br></pre></td></tr></table></figure>
+<p>因为 localeCompare() 返回的数值取决于实现，所以最好是像下面例子所示使用该方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var stringValue = &apos;yellow&apos;;</span><br><span class="line"></span><br><span class="line">function determineOrder(value) &#123;</span><br><span class="line">    var result = stringValue.localeCompare(value);</span><br><span class="line">    if (result &lt; 0) &#123;</span><br><span class="line">        alert(&apos;yellow before&apos;+ value + &apos;&apos;)</span><br><span class="line">    &#125; else if (result &gt;0) &#123;</span><br><span class="line">        alert(&apos;yellow after&apos; + value + &apos;&apos;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        alert(&apos;yellow equal&apos; + value + &apos;&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">determineOrder(&apos;brick&apos;);</span><br><span class="line">determineOrder(&apos;yellow&apos;);</span><br><span class="line">determineOrder(&apos;zoo&apos;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="fromCharCode-方法"><a href="#fromCharCode-方法" class="headerlink" title="fromCharCode() 方法"></a>fromCharCode() 方法</h2><p>string 构造函数本身还有一个静态方法： fromCharCode()。<br>这个方法的任务是接收一或多个字符编码，然后将它们转换成一个字符串。<br>从本质上来看，这个方法与实力方法 charCodeAt() 执行的是相反的操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(String.fromCharCode(104, 101, 108, 108, 111)); // &apos;hello&apos;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/11/20/基本包装类型/">基本包装类型</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Spumpkin 的个人博客">Spumpkin</a></p>
+  <p><span>发布时间:</span>2017年11月20日 - 20:11</p>
+  <p><span>最后更新:</span>2018年10月10日 - 19:10</p>
+  <p><span>原始链接:</span><a href="/2017/11/20/基本包装类型/" title="基本包装类型">http://spumpkinblog.com/2017/11/20/基本包装类型/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://spumpkinblog.com/2017/11/20/基本包装类型/" aria-label="复制成功！"></i></span>
+  </p>
+  <!--<p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a>转载请保留原文链接及作者</p>-->   
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/18/Function类型/" rel="next" title="Function 类型">
+                <i class="fa fa-chevron-left"></i> Function 类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/23/单体内置对象/" rel="prev" title="单体内置对象">
+                单体内置对象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODQ0Ny8xNDk3NQ=="></div>
+    
+ 
+  </div>
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/uploads/head.jpg" alt="Spumpkin">
+          <p class="site-author-name" itemprop="name">Spumpkin</p>
+           
+              <p class="site-description motion-element" itemprop="description">个人技术博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Boolean-类型"><span class="nav-number">1.</span> <span class="nav-text">Boolean 类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Number-类型"><span class="nav-number">2.</span> <span class="nav-text">Number 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#toFixed-方法"><span class="nav-number">2.1.</span> <span class="nav-text">toFixed() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toExponential-方法"><span class="nav-number">2.2.</span> <span class="nav-text">toExponential() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toPrecision-方法"><span class="nav-number">2.3.</span> <span class="nav-text">toPrecision() 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-类型"><span class="nav-number">3.</span> <span class="nav-text">String 类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符方法"><span class="nav-number">4.</span> <span class="nav-text">字符方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#charAt-和-charCodeAt-方法"><span class="nav-number">4.1.</span> <span class="nav-text">charAt() 和 charCodeAt() 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串操作方法"><span class="nav-number">5.</span> <span class="nav-text">字符串操作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#concat-方法"><span class="nav-number">5.1.</span> <span class="nav-text">concat() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slice-、-substr-、-substring-方法"><span class="nav-number">5.2.</span> <span class="nav-text">slice()、 substr()、 substring() 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串位置方法"><span class="nav-number">6.</span> <span class="nav-text">字符串位置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#indexOf-和-lastIndexOf-方法"><span class="nav-number">6.1.</span> <span class="nav-text">indexOf() 和 lastIndexOf() 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trim-方法"><span class="nav-number">7.</span> <span class="nav-text">trim() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串大小写转换方法"><span class="nav-number">8.</span> <span class="nav-text">字符串大小写转换方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串的模式匹配方法"><span class="nav-number">9.</span> <span class="nav-text">字符串的模式匹配方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#match-方法"><span class="nav-number">9.1.</span> <span class="nav-text">match() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#search-方法"><span class="nav-number">9.2.</span> <span class="nav-text">search() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace-方法"><span class="nav-number">9.3.</span> <span class="nav-text">replace() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#split-方法"><span class="nav-number">9.4.</span> <span class="nav-text">split() 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#localeCompare-方法"><span class="nav-number">10.</span> <span class="nav-text">localeCompare() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fromCharCode-方法"><span class="nav-number">11.</span> <span class="nav-text">fromCharCode() 方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Spumpkin</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  访问用户:<span id="busuanzi_value_site_uv"></span>
+  <div class="powered-by"></div>
+<i class="fa fa-eye"></i>
+<span id="busuanzi_container_site_pv">
+  访问量:<span id="busuanzi_value_site_pv"></span>次
+</span>
+</span></div>
+
+<div class="theme-info">
+  <i class="fa fa-file-word-o"></i>
+  <span class="post-count">全站共  字</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("OmrzeBPrdmOT99EHk3FK8HSE-gzGzoHsz", "nAITf6GVREXfSDVLJXWBijtN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

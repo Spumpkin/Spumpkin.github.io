@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="web前端、前端工程师">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="插件的条件一个可复用的插件需要满足以下条件：1.插件自身的作用域与用户当前的作用域相互独立，也就是插件内部的私有变量不能影响使用者的环境变量2.插件需具备默认设置参数3.插件除了具备已实现的基本功能外，需提供部分 API，使用者可以用过该 API 修改插件功能的默认参数，从而实现用户自定义插件效果4.插件支持链式调用5.插件需要提供监听入口，及针对指定元素进行监听，使得该元素与插件响应达到插件效果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS插件之路">
+<meta property="og:url" content="http://spumpkinblog.com/2018/08/13/JS插件之路/index.html">
+<meta property="og:site_name" content="Spumpkin&#39;s blog">
+<meta property="og:description" content="插件的条件一个可复用的插件需要满足以下条件：1.插件自身的作用域与用户当前的作用域相互独立，也就是插件内部的私有变量不能影响使用者的环境变量2.插件需具备默认设置参数3.插件除了具备已实现的基本功能外，需提供部分 API，使用者可以用过该 API 修改插件功能的默认参数，从而实现用户自定义插件效果4.插件支持链式调用5.插件需要提供监听入口，及针对指定元素进行监听，使得该元素与插件响应达到插件效果">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-17T16:32:25.523Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS插件之路">
+<meta name="twitter:description" content="插件的条件一个可复用的插件需要满足以下条件：1.插件自身的作用域与用户当前的作用域相互独立，也就是插件内部的私有变量不能影响使用者的环境变量2.插件需具备默认设置参数3.插件除了具备已实现的基本功能外，需提供部分 API，使用者可以用过该 API 修改插件功能的默认参数，从而实现用户自定义插件效果4.插件支持链式调用5.插件需要提供监听入口，及针对指定元素进行监听，使得该元素与插件响应达到插件效果">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://spumpkinblog.com/2018/08/13/JS插件之路/">
+
+
+
+
+
+  <title>JS插件之路 | Spumpkin's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?51393b20fed55da5e73d0255cf2eebcc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Spumpkin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">努力搬砖</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://spumpkinblog.com/2018/08/13/JS插件之路/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Spumpkin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Spumpkin's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS插件之路</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T23:31:03+08:00">
+                2018-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/13/JS插件之路/" class="leancloud_visitors" data-flag-title="JS插件之路">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                   分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="插件的条件"><a href="#插件的条件" class="headerlink" title="插件的条件"></a>插件的条件</h2><p>一个可复用的插件需要满足以下条件：<br>1.插件自身的作用域与用户当前的作用域相互独立，也就是插件内部的私有变量不能影响使用者的环境变量<br>2.插件需具备默认设置参数<br>3.插件除了具备已实现的基本功能外，需提供部分 API，使用者可以用过该 API 修改插件功能的默认参数，从而实现用户自定义插件效果<br>4.插件支持链式调用<br>5.插件需要提供监听入口，及针对指定元素进行监听，使得该元素与插件响应达到插件效果</p>
+<p>插件的外包装<br>用函数包装<br>所谓插件，其实就是封装一个闭包中的一种函数集。</p>
+<p>我想实现两个数字相加的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function add(num1, num2) &#123;</span><br><span class="line">    return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(1, 2); // 3</span><br></pre></td></tr></table></figure></p>
+<p>当我们要实现的功能是一些简单的逻辑，就没有必要弄一些插件什么的。JS 函数本身就可以解决绝大多数问题。<br>不过在实际工作中，一般需求比较复杂。假如要实现的不单单是相加，还有相减、相乘、相除等功能呢，该怎么办呢？<br>当然可以直接把这些功能全部写出来，然后需要就调用，需要用的地方就引入这个 JS 文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 加</span><br><span class="line">function add(num1, num2) &#123;</span><br><span class="line">    return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 减</span><br><span class="line">function sub(num1, num2) &#123;</span><br><span class="line">    return num1 - num2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 乘</span><br><span class="line">function mul(num1, num2) &#123;</span><br><span class="line">    return num1 * num2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 除</span><br><span class="line">function div(num1, num2) &#123;</span><br><span class="line">    return num1 / num2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 求余</span><br><span class="line">function sur(num1, num2) &#123;</span><br><span class="line">    return num1 % num2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一个人开发的时候这么写没有问题，但当2个人以上的团队开发时，如果另外一个人并不知道你定义了 add 方法，他也定义了同样的方法，那么你们之间就会产生冲突，一般称之为变量的全局污染。</p>
+<h3 id="用全局对象包装"><a href="#用全局对象包装" class="headerlink" title="用全局对象包装"></a>用全局对象包装</h3><p>为了解决这种全局变量污染的问题，我们可以定义一个 JS 对象来接受我们的这些工具函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var plugin = &#123;</span><br><span class="line">    add: function(num1, num2) &#123;...&#125;, // 加</span><br><span class="line">    sub: function(num1, num2) &#123;...&#125;, // 减</span><br><span class="line">    mul: function(num1, num2) &#123;...&#125;, // 乘</span><br><span class="line">    div: function(num1, num2) &#123;...&#125;, // 除</span><br><span class="line">    sur: function(num1, num2) &#123;...&#125;, // 余</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">plugin.add(1, 2); // 3</span><br></pre></td></tr></table></figure></p>
+<p>为了避免有人并不知道此全局变量已经定义了，再一次定义把你的对象覆盖掉，所以可以这么干<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 如果定义了相同的变量就会报错</span><br><span class="line">if (!plugin) &#123; //  条件也可以写成：typeof plguin == &apos;undefined&apos;</span><br><span class="line">    var plugin = &#123;</span><br><span class="line">        // 运行的函数逻辑</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>基本上，这就可以算是一个插件了。解决了全局污染问题，方法函数可以抽出来放到单独的 JS 文件里面。</p>
+<h3 id="利用闭包包装"><a href="#利用闭包包装" class="headerlink" title="利用闭包包装"></a>利用闭包包装</h3><p>利用全局对象进行包装，虽然可以实现插件的基本功能，但是 plugin 对象时定义在全局作用的，JS 变量的调用，从全局作用域上查找的速度会比在私有作用域里面慢的多，所以最好将插件写在一个私有作用域里中。<br>实现私有作用域，最好的办法就是使用闭包。<br>可以把插件当做一个函数，插件内部的变量及函数的私有变量，为了在调用插件后依旧能够使用其功能，闭包的作用就是延长函数（插件）内部变量的生命周期，使得插件函数可以重复调用，而不影响用户自身作用域。<br>故需要将插件的所有功能写在一个立即执行函数中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">;(function(global, undefined) &#123;</span><br><span class="line">    var plugin = &#123;</span><br><span class="line">        add: function(num1, num2) &#123;...&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 最后将插件对象暴露给全局对象</span><br><span class="line">    &apos;plugin&apos; in global &amp;&amp; global.plugin = plugin;</span><br><span class="line">&#125;)(window)</span><br></pre></td></tr></table></figure></p>
+<p>1.在定义插件之前添加一个分号，可以防止前面的语句缺少 ; 结尾,解决 JS 合并时可能会产生的错误问题<br>2.undefined 在老一辈的浏览器是不被支持的，直接使用会报错，JS 框架要考虑到兼容性，因此增加一个形参 undefined，就算有人把外面的 undefined 定义了，里面的 undefined 依然不受影响。<br>3.把 window 对象作为参数传入，是避免了函数执行的时候要到外部取查找</p>
+<p>其实，我们觉得直接传window对象进去，我觉得还是不太妥当。我们并不确定我们的插件就一定用于浏览器上，也有可能使用在一些非浏览端上。所以我们还可以这么干，我们不传参数，直接取当前的全局this对象为作顶级对象用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">;(function(global, undefined) &#123;</span><br><span class="line">   &apos;use strict&apos; // 使用 JS 严格模式检查，使语法更规范</span><br><span class="line">   var _global;</span><br><span class="line">   var plugin = &#123;</span><br><span class="line">       add: function() &#123;...&#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   // 将插件对象暴露给全局对象</span><br><span class="line">   _global = (function() &#123;</span><br><span class="line">       return this || (0, eval)(&apos;this&apos;);</span><br><span class="line">   &#125;());</span><br><span class="line"></span><br><span class="line">   !(&apos;plugin&apos; in _global) &amp;&amp; (_global.plugin = plugin); </span><br><span class="line">&#125;())</span><br></pre></td></tr></table></figure></p>
+<p>如此，我们不需要传入任何参数，并且解决了插件对环境的依赖性，可以在任何宿主环境上运行了。</p>
+<p>关于立即执行函数的写法有两种<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 写法一</span><br><span class="line">(function()&#123;&#125;)()</span><br><span class="line"></span><br><span class="line">// 写二</span><br><span class="line">(function()&#123;&#125;())</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用模块化的规范包装"><a href="#使用模块化的规范包装" class="headerlink" title="使用模块化的规范包装"></a>使用模块化的规范包装</h3><p>虽然上面的包装基本上已经算是可以的了，但是如果是多个人一起开发一个大型的插件，这时我们要该怎么办呢？多人合作，肯定会产生多个文件，每个人负责一个小功能，那么如何才能将所有人开发的代码集合起来呢？这是一个讨厌的问题。要实现协作开发插件，必须具备如下条件：</p>
+<p>每功能互相之间的依赖必须要明确，则必须严格按照依赖的顺序进行合并或者加载</p>
+<p>每个子功能分别都要是一个闭包，并且将公共的接口暴露到共享域也即是一个被主函数暴露的公共对象</p>
+<p>关键如何实现，有很多种办法。最笨的办法就是按顺序加载 js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;part1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;part2.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;part3.js&quot;&gt;&lt;/script&gt;...&lt;script type=&quot;text/javascript&quot; src=&quot;main.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>但是不推荐这么做，这样做与我们所追求的插件的封装性相背。<br>不过现在前端界有一堆流行的模块加载器，比如 require、seajs，或者也可以像类似于 Node 的方式进行加载，不过在浏览器端，我们还得利用打包器来实现模块加载，比如 browserify。<br>为了实现插件的模块化并且让我们的插件也是一个模块，我们就得让我们的插件也实现模块化的机制。<br>我们实际上，只要判断是否存在加载器，如果存在加载器，我们就使用加载器，如果不存在加载器。我们就使用顶级域对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if (typeof module !== &quot;undefined&quot; &amp;&amp; module.exports) &#123;</span><br><span class="line">    module.exports = plugin;</span><br><span class="line">&#125; else if (typeof define === &quot;function&quot; &amp;&amp; define.amd) &#123;</span><br><span class="line">    define(function()&#123;return plugin;&#125;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    _globals.plugin = plugin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="完整的插件"><a href="#完整的插件" class="headerlink" title="完整的插件"></a>完整的插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// plugin.js</span><br><span class="line">;(function(undefined) &#123;</span><br><span class="line">    &quot;use strict&quot;</span><br><span class="line">    var _global;</span><br><span class="line">    var plugin = &#123;</span><br><span class="line">        add: function(n1,n2)&#123; return n1 + n2; &#125;,//加</span><br><span class="line">        sub: function(n1,n2)&#123; return n1 - n2; &#125;,//减</span><br><span class="line">        mul: function(n1,n2)&#123; return n1 * n2; &#125;,//乘</span><br><span class="line">        div: function(n1,n2)&#123; return n1 / n2; &#125;,//除</span><br><span class="line">        sur: function(n1,n2)&#123; return n1 % n2; &#125; //余</span><br><span class="line">    &#125;</span><br><span class="line">    // 最后将插件对象暴露给全局对象</span><br><span class="line">    _global = (function()&#123; return this || (0, eval)(&apos;this&apos;); &#125;());</span><br><span class="line">    if (typeof module !== &quot;undefined&quot; &amp;&amp; module.exports) &#123;</span><br><span class="line">        module.exports = plugin;</span><br><span class="line">    &#125; else if (typeof define === &quot;function&quot; &amp;&amp; define.amd) &#123;</span><br><span class="line">        define(function()&#123;return plugin;&#125;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        !(&apos;plugin&apos; in _global) &amp;&amp; (_global.plugin = plugin);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>引用插件，就可以对 plugin 对象进行调用了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 多次使用某个对象的属性或方法，可以用 with 来获取</span><br><span class="line">with(plugin) &#123;</span><br><span class="line">    console.log(add(2,1)) // 3</span><br><span class="line">    console.log(sub(2,1)) // 1</span><br><span class="line">    console.log(mul(2,1)) // 2</span><br><span class="line">    console.log(div(2,1)) // 2</span><br><span class="line">    console.log(sur(2,1)) // 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 通过对象.属性或对象.方法获取</span><br><span class="line">plugin.add(2,1); //3</span><br></pre></td></tr></table></figure></p>
+<h2 id="插件的默认参数和-API"><a href="#插件的默认参数和-API" class="headerlink" title="插件的默认参数和 API"></a>插件的默认参数和 API</h2><p>函数是可以设置默认参数这种说法，而不管我们是否传有参数，我们都应该返回一个值以告诉用户我做了怎样的处理，比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function add(param) &#123;</span><br><span class="line">    var args = !!param ? Array.prototype.slice.call(arguments) : [];</span><br><span class="line">        return args.reduce(function(pre, cur) &#123;</span><br><span class="line">                return pre + cur </span><br><span class="line">        &#125;,0)</span><br><span class="line">&#125;</span><br><span class="line">console.log(add()); // 0（不传参，结果为0）</span><br><span class="line">console.log(add(1, 2, 3, 4)); // 15（传入了参数）</span><br></pre></td></tr></table></figure></p>
+<p>作为一个健壮的 JS 插件，我们应该把一些基本的状态参数添加到我们需要的插件上去。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">// plugin.js</span><br><span class="line">;(function(undefined) &#123;</span><br><span class="line">    &quot;use strict&quot;</span><br><span class="line">    var _global;</span><br><span class="line">    function result(args,fn)&#123;</span><br><span class="line">        var argsArr = Array.prototype.slice.call(args);</span><br><span class="line">        if(argsArr.length &gt; 0)&#123;</span><br><span class="line">            return argsArr.reduce(fn);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    var plugin = &#123;</span><br><span class="line">        add: function()&#123;</span><br><span class="line">            return result(arguments,function(pre,cur)&#123;</span><br><span class="line">                return pre + cur;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,//加</span><br><span class="line">        sub: function()&#123;</span><br><span class="line">            return result(arguments,function(pre,cur)&#123;</span><br><span class="line">                return pre - cur;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,//减</span><br><span class="line">        mul: function()&#123;</span><br><span class="line">            return result(arguments,function(pre,cur)&#123;</span><br><span class="line">                return pre * cur;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,//乘</span><br><span class="line">        div: function()&#123;</span><br><span class="line">            return result(arguments,function(pre,cur)&#123;</span><br><span class="line">                return pre / cur;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,//除</span><br><span class="line">        sur: function()&#123;</span><br><span class="line">            return result(arguments,function(pre,cur)&#123;</span><br><span class="line">                return pre % cur;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; //余</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 最后将插件对象暴露给全局对象</span><br><span class="line">    _global = (function()&#123; return this || (0, eval)(&apos;this&apos;); &#125;());</span><br><span class="line">    if (typeof module !== &quot;undefined&quot; &amp;&amp; module.exports) &#123;</span><br><span class="line">        module.exports = plugin;</span><br><span class="line">    &#125; else if (typeof define === &quot;function&quot; &amp;&amp; define.amd) &#123;</span><br><span class="line">        define(function()&#123;return plugin;&#125;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        !(&apos;plugin&apos; in _global) &amp;&amp; (_global.plugin = plugin);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;());</span><br><span class="line">// 输出结果为：</span><br><span class="line">with(plugin)&#123;</span><br><span class="line">    console.log(add()); // 0</span><br><span class="line">    console.log(sub()); // 0</span><br><span class="line">    console.log(mul()); // 0</span><br><span class="line">    console.log(div()); // 0</span><br><span class="line">    console.log(sur()); // 0</span><br><span class="line">    console.log(add(2,1)); // 3</span><br><span class="line">    console.log(sub(2,1)); // 1</span><br><span class="line">    console.log(mul(2,1)); // 2</span><br><span class="line">    console.log(div(2,1)); // 2</span><br><span class="line">    console.log(sur(2,1)); // 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实际上，插件都有自己的默认参数，既然参数是默认的，那就意味着我们可以随意修改参数以达到我们的需求，插件本身的意义就在于具有复用性，我们可以 new 一个对象，修改默认参数，再使用</p>
+<h2 id="插件的钩子"><a href="#插件的钩子" class="headerlink" title="插件的钩子"></a>插件的钩子</h2><p>我们知道，设计一下插件，参数或者其逻辑肯定不是写死的，我们得像函数一样，得让用户提供自己的参数去实现用户的需求。则我们的插件需要提供一个修改默认参数的入口。<br>如上面我们说的修改默认参数，实际上也是插件给我们提供的一个 API。让我们的插件更加的灵活。<br>通常我们用的 js 插件，实现的方式会有多种多样的。最简单的实现逻辑就是一个方法，或者一个 js 对象，又或者是一个构造函数等等。<br>我们插件所谓的API，实际就是我们插件暴露出来的所有方法及属性<br>在上面的例子中，我们的 API 就是下面的几个方法，即 add，sub，mul，div，sur。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var plugin = &#123;</span><br><span class="line">    add: function(n1,n2)&#123; return n1 + n2; &#125;,</span><br><span class="line">    sub: function(n1,n2)&#123; return n1 - n2; &#125;,</span><br><span class="line">    mul: function(n1,n2)&#123; return n1 * n2; &#125;,</span><br><span class="line">    div: function(n1,n2)&#123; return n1 / n2; &#125;,</span><br><span class="line">    sur: function(n1,n2)&#123; return n1 % n2; &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在插件的 API 中，我们常常将容易被修改和变动的方法或属性统称为钩子(Hook)，方法则直接叫钩子函数。这是一种形象生动的说法，就好像我们在一条绳子上放很多挂钩，我们可以按需要在上面挂东西。<br>实际上，我们即知道插件可以像一条绳子上挂东西，也可以拿掉挂的东西。那么一个插件，实际上就是个形象上的链。不过我们上面的所有钩子都是挂在对象上的，用于实现链并不是很理想。</p>
+<p>参考至：<a href="http://www.php.cn/js-tutorial-387538.html" target="_blank" rel="noopener">http://www.php.cn/js-tutorial-387538.html</a></p>
+<h2 id="JS-原生封装"><a href="#JS-原生封装" class="headerlink" title="JS 原生封装"></a>JS 原生封装</h2><p>我们在封装的时候会把 JS 代码放到一个自执行函数里面，这样可以防止变量冲突<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(function() &#123;</span><br><span class="line">    // ...</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<p>然后再创建一个构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(function() &#123;</span><br><span class="line">    var demo = function(options) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<p>把这个函数暴露给外部，以便全局调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(function() &#123;</span><br><span class="line">    var demo = function(options) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    window.demo = demo;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<h3 id="方法一般写在原型里，属性写在构造函数里。"><a href="#方法一般写在原型里，属性写在构造函数里。" class="headerlink" title="方法一般写在原型里，属性写在构造函数里。"></a>方法一般写在原型里，属性写在构造函数里。</h3><h3 id="插件基本雏形"><a href="#插件基本雏形" class="headerlink" title="插件基本雏形"></a>插件基本雏形</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(function(window,document)&#123;</span><br><span class="line">    var MaskShare = function()&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;;</span><br><span class="line">    MaskShare.prototype = &#123;&#125;;</span><br><span class="line"> </span><br><span class="line">    window.MaskShare = MaskShare;</span><br><span class="line">&#125;(window,document));</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/11/防止全局变量污染的方法/" rel="next" title="防止全局变量污染的方法">
+                <i class="fa fa-chevron-left"></i> 防止全局变量污染的方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/18/import和export/" rel="prev" title="import和export">
+                import和export <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODQ0Ny8xNDk3NQ=="></div>
+    
+ 
+  </div>
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/uploads/head.jpg" alt="Spumpkin">
+          <p class="site-author-name" itemprop="name">Spumpkin</p>
+           
+              <p class="site-description motion-element" itemprop="description">个人技术博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#插件的条件"><span class="nav-number">1.</span> <span class="nav-text">插件的条件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用全局对象包装"><span class="nav-number">1.1.</span> <span class="nav-text">用全局对象包装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用闭包包装"><span class="nav-number">1.2.</span> <span class="nav-text">利用闭包包装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用模块化的规范包装"><span class="nav-number">1.3.</span> <span class="nav-text">使用模块化的规范包装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整的插件"><span class="nav-number">1.4.</span> <span class="nav-text">完整的插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件的默认参数和-API"><span class="nav-number">2.</span> <span class="nav-text">插件的默认参数和 API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件的钩子"><span class="nav-number">3.</span> <span class="nav-text">插件的钩子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-原生封装"><span class="nav-number">4.</span> <span class="nav-text">JS 原生封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一般写在原型里，属性写在构造函数里。"><span class="nav-number">4.1.</span> <span class="nav-text">方法一般写在原型里，属性写在构造函数里。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件基本雏形"><span class="nav-number">4.2.</span> <span class="nav-text">插件基本雏形</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Spumpkin</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  访问用户:<span id="busuanzi_value_site_uv"></span>
+  <div class="powered-by"></div>
+<i class="fa fa-eye"></i>
+<span id="busuanzi_container_site_pv">
+  访问量:<span id="busuanzi_value_site_pv"></span>次
+</span>
+</span></div>
+
+<div class="theme-info">
+  <i class="fa fa-file-word-o"></i>
+  <span class="post-count">全站共  字</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("OmrzeBPrdmOT99EHk3FK8HSE-gzGzoHsz", "nAITf6GVREXfSDVLJXWBijtN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

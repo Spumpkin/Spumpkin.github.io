@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="web前端、前端工程师">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="正则表达式（英语：Regular Expression，在代码中常简写为regex、regexp或RE）使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式。搜索模式可用于文本搜索和文本替换。工作原理：通配符技术（比较常见的是查找文件） 创建一个正则表达式（字面量形式）1var expression = /pattern/flags; 其中的模式（pattern）部分可以是任何简单或复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RegExp类型">
+<meta property="og:url" content="http://spumpkinblog.com/2017/11/16/RegExp类型/index.html">
+<meta property="og:site_name" content="Spumpkin&#39;s blog">
+<meta property="og:description" content="正则表达式（英语：Regular Expression，在代码中常简写为regex、regexp或RE）使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式。搜索模式可用于文本搜索和文本替换。工作原理：通配符技术（比较常见的是查找文件） 创建一个正则表达式（字面量形式）1var expression = /pattern/flags; 其中的模式（pattern）部分可以是任何简单或复">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-13T13:27:14.365Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RegExp类型">
+<meta name="twitter:description" content="正则表达式（英语：Regular Expression，在代码中常简写为regex、regexp或RE）使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式。搜索模式可用于文本搜索和文本替换。工作原理：通配符技术（比较常见的是查找文件） 创建一个正则表达式（字面量形式）1var expression = /pattern/flags; 其中的模式（pattern）部分可以是任何简单或复">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://spumpkinblog.com/2017/11/16/RegExp类型/">
+
+
+
+
+
+  <title>RegExp类型 | Spumpkin's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?51393b20fed55da5e73d0255cf2eebcc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Spumpkin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">努力搬砖</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://spumpkinblog.com/2017/11/16/RegExp类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Spumpkin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Spumpkin's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RegExp类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-16T10:57:16+08:00">
+                2017-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/11/16/RegExp类型/" class="leancloud_visitors" data-flag-title="RegExp类型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                   分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>正则表达式（英语：Regular Expression，在代码中常简写为regex、regexp或RE）使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式。<br>搜索模式可用于文本搜索和文本替换。<br>工作原理：通配符技术（比较常见的是查找文件）</p>
+<h2 id="创建一个正则表达式（字面量形式）"><a href="#创建一个正则表达式（字面量形式）" class="headerlink" title="创建一个正则表达式（字面量形式）"></a>创建一个正则表达式（字面量形式）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var expression = /pattern/flags;</span><br></pre></td></tr></table></figure>
+<p>其中的模式（pattern）部分可以是任何简单或复杂的正则表达式，可以包含字符类、限定类、分组、向前查找以及反向引用。<br>每个正则表达式都可带一或多个标志（flags），用以标明正则表达式的行为。</p>
+<p>正则表达式的匹配模式支持下列 3 个标志：</p>
+<ul>
+<li>g: 表示全局（global）模式，即模式将被应用于所有的字符串，而非在发现第一个匹配项时立即停止</li>
+<li>i: 表示不区分大小写（case-insensitive）模式，即在确定匹配项时忽略模式与字符串的大小写</li>
+<li>m: 表示多行（multiline）模式，即在到达一行文本末尾时还是继续查找下一行中是否存在于模式匹配的项</li>
+</ul>
+<p>因此，一个正则表达式就是一个模式与上述 3 个标志的组合体,如下面的例子所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 匹配字符串中所有 &quot;at&quot; 的实例</span><br><span class="line">var re = /at/g;</span><br><span class="line"></span><br><span class="line">// 匹配第一个 &quot;bat&quot; 或 &quot;cat&quot;，不区分大小写</span><br><span class="line">var re = /[bc]at/i;</span><br><span class="line"></span><br><span class="line">// 匹配所有以 &quot;at&quot; 结尾的 3 个字符的组合，不区分大小写</span><br><span class="line"> var re = /.at/gi;</span><br></pre></td></tr></table></figure>
+<p>与其他语言中的正则表达式类似，模式中使用的所有元字符都必须转义。<br>正则表达式中的元字符包括：（ [ { \ ^ $ | ) ? * + . ] }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 匹配第一个 &quot;[bc]at&quot;，不区分大小写</span><br><span class="line">var re = /\[bc\]at/i; // 用 &quot;\&quot; 来对元字符进行转义</span><br><span class="line"></span><br><span class="line">// 匹配所有 &quot;.at&quot;，不区分大小写</span><br><span class="line">var re = /\.at/gi; // 用 &quot;\&quot; 来对元字符进行转义</span><br></pre></td></tr></table></figure>
+<h2 id="创建一个正则表达式（RegExp-构造函数）"><a href="#创建一个正则表达式（RegExp-构造函数）" class="headerlink" title="创建一个正则表达式（RegExp 构造函数）"></a>创建一个正则表达式（RegExp 构造函数）</h2><p>RegExp 构造函数接收两个参数：一个是匹配的字符串模式，另一个是可选的标志字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 匹配第一个 &quot;bat&quot; 或 &quot;cat&quot;，不区分大小写</span><br><span class="line">var re = new RegExp(&apos;[bc]at&apos;, &apos;i&apos;); // 构造函数创建正则表达式</span><br><span class="line"></span><br><span class="line">// 匹配第一个 &quot;bat&quot; 或 &quot;cat&quot;，不区分大小写</span><br><span class="line">var re = new RegExp(/[bc]at/i);</span><br><span class="line"></span><br><span class="line">// ES5 不允许用正则时使用第二个参数</span><br><span class="line">var re = new RegExp(/[bc]at/, &apos;i&apos;);</span><br><span class="line">// Uncaught TypeError: Cannot supply flags when constructing one RegExp from another</span><br><span class="line"></span><br><span class="line">// ES6 允许使用，并且返回的结果会忽略正则表达式原有的修饰符，用传入的修饰符</span><br><span class="line">var re = new RegExp(/[bc]at/ig, &apos;i&apos;).flags; // &apos;i&apos;</span><br></pre></td></tr></table></figure>
+<p>由于 RegExp 构造函数的模式参数是字符串，所以在某些情况下要对字符串进行双重转义。所有元字符都必须双重转义，那些已经转义过的字符也是。<br>例如 \n （字符 \ 在字符串中通常被转义为 \，而在正则表达式字符串中就会变成 \\）</p>
+<table>
+<thead>
+<tr>
+<th>字面量模式</th>
+<th>等价的字符串</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/[bc]at/</td>
+<td>“\[bc\]at”</td>
+</tr>
+<tr>
+<td>/.at/</td>
+<td>“\.at”</td>
+</tr>
+<tr>
+<td>/name\/age/</td>
+<td>“name\/age”</td>
+</tr>
+<tr>
+<td>/\d.\d{1,2}/</td>
+<td>“\d.\d{1,2}”</td>
+</tr>
+<tr>
+<td>/\w\hello\123/</td>
+<td>“\w\\hello\\123”</td>
+</tr>
+</tbody>
+</table>
+<h2 id="RegExp-实例属性"><a href="#RegExp-实例属性" class="headerlink" title="RegExp 实例属性"></a>RegExp 实例属性</h2><p>RegExp 的每个实例都具有下列属性，通过这些属性可以取得有关模式的各种信息。</p>
+<ul>
+<li>global：布尔值，表示是否设置了 g 标志</li>
+<li>ignoreCase：布尔值，表示是否设置了 i 标志</li>
+<li>multiline： 布尔值，表示是否设置了 m 标志</li>
+<li>lastIndex：整数，表示开始搜索下一个匹配项的字符位置，从 0 算起</li>
+<li>source：正则表达式的字符串表示，按照字面量形式而非传入构造函数中的字符串模式返回</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var re = /\[bc\]at/i;</span><br><span class="line"></span><br><span class="line">alert(re.global);     // false</span><br><span class="line">alert(re.ignoreCase); // true</span><br><span class="line">alert(re.multiline);  // false</span><br><span class="line">alert(re.lastIndex);  // 0</span><br><span class="line">alert(re.source);     // &quot;\[bc\]at&quot; 字面量形式</span><br><span class="line"></span><br><span class="line">var re = new RegExp(&apos;\\[bc\\]at&apos;,&apos;i&apos;);</span><br><span class="line"></span><br><span class="line">alert(re.global);     // false</span><br><span class="line">alert(re.ignoreCase); // true</span><br><span class="line">alert(re.multiline);  // false</span><br><span class="line">alert(re.lastIndex);  // 0</span><br><span class="line">alert(re.source);     // &quot;\[bc\]at&quot; 字面量形式</span><br></pre></td></tr></table></figure>
+<h2 id="RegExp-实例方法"><a href="#RegExp-实例方法" class="headerlink" title="RegExp 实例方法"></a>RegExp 实例方法</h2><h3 id="exec"><a href="#exec" class="headerlink" title="exec()"></a>exec()</h3><p>exec() 方法专门为捕获组而设计的。</p>
+<p>exec()方法接收一个参数，即要应用模式的字符串，然后返回包含第一个匹配项信息的数组，或者在没有匹配项的情况下返回 null。</p>
+<p>返回的虽然是 Array 的实例，但是包含两个额外的属性：</p>
+<ul>
+<li>index 表示匹配项在字符串中的位置</li>
+<li>input 表示应用正则表达式的字符串</li>
+</ul>
+<p>在数组中，第一项是与整个模式匹配的字符串，其他项是与模式中的捕获组匹配的字符串（如果模式中没有捕获组，则该数组只包含一项）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var text = &quot;mom and dad and baby&quot;;       // 应用模式的字符串</span><br><span class="line">var re = /mom( and dad( and baby)?)?/gi; // 模式</span><br><span class="line"></span><br><span class="line">var matches = re.exec(text);</span><br><span class="line">alert(matches.index); // 0  </span><br><span class="line">alert(matches.input); // &apos;mom and dad and baby&apos;</span><br><span class="line">alert(matches[0]);    // &apos;mom and dad and baby&apos;</span><br><span class="line">alert(matches[1]);    // &apos;and dad and baby&apos; 捕获组</span><br><span class="line">alert(matches[2]);    // &apos;and baby&apos; 捕获组</span><br></pre></td></tr></table></figure>
+<p>上述例子中的模式包含两个捕获组。最内部的捕获组匹配 “and baby”，而包含它的捕获组匹配 “and dad” 或者 “and dad and baby”。</p>
+<p>对于 exec() 而言，在不设置全局标志的情况下，在同一个字符串上多次调用 exec() 始终返回第一个匹配项的信息。<br>而在设置全局标志的情况下，每次调用 exec() 则都会在字符串中继续查找新匹配项。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var text = &apos;cat, bat, sat, fat&apos;;</span><br><span class="line">var re1 = /.at/;</span><br><span class="line"></span><br><span class="line">var matches = re1.exec(text);</span><br><span class="line">alert(matches.index); // 0</span><br><span class="line">alert(matches[0]); // cat</span><br><span class="line">alert(re1.lastIndex);  // 0 下一个匹配字符项的位置</span><br><span class="line"></span><br><span class="line">var matches = re1.exec(text);</span><br><span class="line">alert(matches.index); // 0</span><br><span class="line">alert(matches[0]); // cat</span><br><span class="line">alert(re1.lastIndex);  // 0</span><br><span class="line"></span><br><span class="line">var re2 = /.at/g;</span><br><span class="line"></span><br><span class="line">var matches = re2.exec(text);</span><br><span class="line">alert(matches.index); // 0</span><br><span class="line">alert(matches[0]); // cat</span><br><span class="line">alert(re2.lastIndex);  // 3</span><br><span class="line"></span><br><span class="line">var matches = re2.exec(text);</span><br><span class="line">alert(matches.index); // 5</span><br><span class="line">alert(matches[0]); // bat</span><br><span class="line">alert(re2.lastIndex);  // 8</span><br><span class="line"></span><br><span class="line">var matches = re2.exec(text);</span><br><span class="line">alert(matches.index); // 10</span><br><span class="line">alert(matches[0]); // sat</span><br><span class="line">alert(re2.lastIndex);  // 13</span><br></pre></td></tr></table></figure></p>
+<p>注意： IE 的 JavaScript 实现在 lastIndex 属性上存在偏差，即使在非全局模式下，lastIndex 属性每次也会变化。 </p>
+<h3 id="test"><a href="#test" class="headerlink" title="test()"></a>test()</h3><p>test() 方法接收一个字符串参数。<br>在模式与该参数匹配的情况下返回 true；否则，返回 false。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var text = &apos;000-00-0000&apos;;</span><br><span class="line">var re = /\d&#123;3&#125;-\d&#123;2&#125;-\d&#123;4&#125;/;</span><br><span class="line"></span><br><span class="line">if (re.test(text)) &#123;</span><br><span class="line">    alert(&apos;The pattern was matched&apos;); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>RegExp 实例继承的 toLocaleString() 和 toString() 方法都会返回正则表示的字面量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var re = new RegExp(&apos;\\[bc\\]at&apos;,&apos;gi&apos;);</span><br><span class="line">alert(re.toString());       // /\[bc\]at/gi</span><br><span class="line">alert(re.toLocaleString()); // /\[bc\]at/gi</span><br><span class="line">alert(re.valueOf());        // /\[bc\]at/gi 返回正则表达式本身</span><br></pre></td></tr></table></figure>
+<h2 id="RegExp-构造函数属性"><a href="#RegExp-构造函数属性" class="headerlink" title="RegExp 构造函数属性"></a>RegExp 构造函数属性</h2><p>RegExp 构造函数包含一些属性（这些属性在其他语言中被看成是静态属性）。这些属性适用于作用域中的所有正则表达式，并且基于所执行的最后一次正则表达式操作而变化。这些属性可以通过长属性名和一个短属性名（Opera 是例外，它不支持短属性名）来访问。</p>
+<table>
+<thead>
+<tr>
+<th>长属性名</th>
+<th>短属性名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>input</td>
+<td>$_</td>
+<td>最近一次要匹配的字符串。Opera未实现此属性</td>
+</tr>
+<tr>
+<td>lastMatch</td>
+<td>$&amp;</td>
+<td>最近一次的匹配项。Opera未实现此属性</td>
+</tr>
+<tr>
+<td>lastParen</td>
+<td>$+</td>
+<td>最近一次匹配的捕获组。Opera未实现此属性</td>
+</tr>
+<tr>
+<td>leftContext</td>
+<td>$`</td>
+<td>input 字符串中 lastMatch 之前的文本</td>
+</tr>
+<tr>
+<td>rightContext</td>
+<td>$’</td>
+<td>Input 字符串中 lastMatch 之后的文本 </td>
+</tr>
+<tr>
+<td>multiline</td>
+<td>$*</td>
+<td>布尔值，表示是否所有表达式都使用多行模式。IE 和 Opera 未实现此属性</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">var text = &apos;this has been a short summer&apos;;</span><br><span class="line">var re = /(.)hort/g;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 注意：Opera 不支持 input、lastMatch、lastParen 和 multiline 属性</span><br><span class="line"> * IE 不支持 multiline 属性</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">if (re.test(text)) &#123;</span><br><span class="line">    alert(RegExp.input);        // this has been a short summer</span><br><span class="line">    alert(RegExp.leftContext);  // this has been a</span><br><span class="line">    alert(RegExp.rightContext); // summer</span><br><span class="line">    alert(RegExp.lastMatch);    // short</span><br><span class="line">    alert(RegExp.lastParen);    // s</span><br><span class="line">    alert(RegExp.multiline);    // false</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 短属性名，因为不是有效的 ECMAScript 标识符</span><br><span class="line"> * 必须通过括号语法来访问</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">if (re.test(text)) &#123;</span><br><span class="line">    alert(RegExp.$_);    // this has been a short summer</span><br><span class="line">    alert(RegExp[&quot;$`&quot;]); // this has been a</span><br><span class="line">    alert(RegExp[&quot;$&apos;&quot;]); // summer</span><br><span class="line">    alert(RegExp[&quot;$&amp;&quot;]); // short </span><br><span class="line">    alert(RegExp[&quot;$+&quot;]); // s</span><br><span class="line">    alert(RegExp[&quot;$*&quot;]); // false</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上代码创建一个模式，匹配任何一个字符后跟 hort，而且把第一个字符放在了一个捕获组中。</p>
+<p>除了上面介绍的几个属性之外，还有多达 9 个用于存储捕获组的构造函数属性。<br>访问这些属性的语言是 RegExp.$1 、RegExp.$2 ··· RegExp.$9，分别用于存储第一、第二······第九个匹配的捕获组。<br>在调用 exec() 或 test() 方法时，这些属性会被自动填充<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var text = &apos;this has been a short summer&apos;;</span><br><span class="line">var re = /(..)or(.)/g;</span><br><span class="line"></span><br><span class="line">if (re.test(text)) &#123;</span><br><span class="line">    alert(RegExp.$1); // sh</span><br><span class="line">    alert(RegExp.$2); // t</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="附表"><a href="#附表" class="headerlink" title="附表"></a>附表</h2><h3 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h3><table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\w</td>
+<td>匹配任何 ASCⅡ 单字符[a-zA-Z0-9]</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配任何 ASCⅡ 单字符之外的字符</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任何 Unicode 空白符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任何 Unicode 空白符之外的字符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配任何数字[0-9]</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配任何数之外的字符</td>
+</tr>
+<tr>
+<td>[…]</td>
+<td>匹配方括号中的所有字符</td>
+</tr>
+<tr>
+<td>[^…]</td>
+<td>匹配非方括号中的所有字符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="重复类"><a href="#重复类" class="headerlink" title="重复类"></a>重复类</h3><table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{n}</td>
+<td>匹配前一项 n 次</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>匹配前一项至少一次，至多不限</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>匹配前一项至少 n 次，最多 m 次</td>
+</tr>
+<tr>
+<td>{?}</td>
+<td>匹配前一项 0 次或者 1 次</td>
+</tr>
+<tr>
+<td>{+}</td>
+<td>匹配前一项至少 1 次</td>
+</tr>
+<tr>
+<td>{*}</td>
+<td>匹配前一项 0 次或者多次</td>
+</tr>
+</tbody>
+</table>
+<h3 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h3><table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>匹配前面的子表达式零次或多次。</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次，或指明一个非贪婪限定符</td>
+</tr>
+<tr>
+<td>( )</td>
+<td>标记一个子表达式的开始和结束位置。子表达式可以获取供以后使用。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配除换行符 \n 之外的任何单字符</td>
+</tr>
+<tr>
+<td>l</td>
+<td>指明两项之间的一个选择</td>
+</tr>
+</tbody>
+</table>
+<h3 id="定位符"><a href="#定位符" class="headerlink" title="定位符"></a>定位符</h3><table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>匹配字符串的开头</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符串的结尾</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个单词的边界</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>与 \b 相反，匹配一个非单词的边界</td>
+</tr>
+</tbody>
+</table>
+<h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(…)</td>
+<td>将几个项目组合成一个单元</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/11/16/RegExp类型/">RegExp类型</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Spumpkin 的个人博客">Spumpkin</a></p>
+  <p><span>发布时间:</span>2017年11月16日 - 10:11</p>
+  <p><span>最后更新:</span>2018年10月13日 - 21:10</p>
+  <p><span>原始链接:</span><a href="/2017/11/16/RegExp类型/" title="RegExp类型">http://spumpkinblog.com/2017/11/16/RegExp类型/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://spumpkinblog.com/2017/11/16/RegExp类型/" aria-label="复制成功！"></i></span>
+  </p>
+  <!--<p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a>转载请保留原文链接及作者</p>-->   
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/06/Date类型/" rel="next" title="Date类型">
+                <i class="fa fa-chevron-left"></i> Date类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/18/Function类型/" rel="prev" title="Function 类型">
+                Function 类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODQ0Ny8xNDk3NQ=="></div>
+    
+ 
+  </div>
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/uploads/head.jpg" alt="Spumpkin">
+          <p class="site-author-name" itemprop="name">Spumpkin</p>
+           
+              <p class="site-description motion-element" itemprop="description">个人技术博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个正则表达式（字面量形式）"><span class="nav-number">1.</span> <span class="nav-text">创建一个正则表达式（字面量形式）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个正则表达式（RegExp-构造函数）"><span class="nav-number">2.</span> <span class="nav-text">创建一个正则表达式（RegExp 构造函数）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RegExp-实例属性"><span class="nav-number">3.</span> <span class="nav-text">RegExp 实例属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RegExp-实例方法"><span class="nav-number">4.</span> <span class="nav-text">RegExp 实例方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exec"><span class="nav-number">4.1.</span> <span class="nav-text">exec()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test"><span class="nav-number">4.2.</span> <span class="nav-text">test()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RegExp-构造函数属性"><span class="nav-number">5.</span> <span class="nav-text">RegExp 构造函数属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附表"><span class="nav-number">6.</span> <span class="nav-text">附表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符类"><span class="nav-number">6.1.</span> <span class="nav-text">字符类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重复类"><span class="nav-number">6.2.</span> <span class="nav-text">重复类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊字符"><span class="nav-number">6.3.</span> <span class="nav-text">特殊字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定位符"><span class="nav-number">6.4.</span> <span class="nav-text">定位符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分组"><span class="nav-number">6.5.</span> <span class="nav-text">分组</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Spumpkin</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  访问用户:<span id="busuanzi_value_site_uv"></span>
+  <div class="powered-by"></div>
+<i class="fa fa-eye"></i>
+<span id="busuanzi_container_site_pv">
+  访问量:<span id="busuanzi_value_site_pv"></span>次
+</span>
+</span></div>
+
+<div class="theme-info">
+  <i class="fa fa-file-word-o"></i>
+  <span class="post-count">全站共  字</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("OmrzeBPrdmOT99EHk3FK8HSE-gzGzoHsz", "nAITf6GVREXfSDVLJXWBijtN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="web前端、前端工程师">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="gulp 是什么前端构建工具，gulp 是基于 Nodejs，自动化地完成 html/image、css、sass、less、javascript、coffee 等文件的测试、检查、合并、压缩、格式化、浏览器自动刷新、部署文件生成，并监听文件在改动后重复指定的这些步骤。借鉴了 Unix 操作系统的管道 （pipe） 思想，前一级的输出，直接变成后一级的输入，使得在操作上非常简单。流，Node 将几">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gulp 之路">
+<meta property="og:url" content="http://spumpkinblog.com/2018/08/01/gulp-之路/index.html">
+<meta property="og:site_name" content="Spumpkin&#39;s blog">
+<meta property="og:description" content="gulp 是什么前端构建工具，gulp 是基于 Nodejs，自动化地完成 html/image、css、sass、less、javascript、coffee 等文件的测试、检查、合并、压缩、格式化、浏览器自动刷新、部署文件生成，并监听文件在改动后重复指定的这些步骤。借鉴了 Unix 操作系统的管道 （pipe） 思想，前一级的输出，直接变成后一级的输入，使得在操作上非常简单。流，Node 将几">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/7cefed4dgy1ftypk61m56j20fe0a1q4h.jpg">
+<meta property="og:updated_time" content="2018-09-15T11:17:23.810Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="gulp 之路">
+<meta name="twitter:description" content="gulp 是什么前端构建工具，gulp 是基于 Nodejs，自动化地完成 html/image、css、sass、less、javascript、coffee 等文件的测试、检查、合并、压缩、格式化、浏览器自动刷新、部署文件生成，并监听文件在改动后重复指定的这些步骤。借鉴了 Unix 操作系统的管道 （pipe） 思想，前一级的输出，直接变成后一级的输入，使得在操作上非常简单。流，Node 将几">
+<meta name="twitter:image" content="http://wx4.sinaimg.cn/mw690/7cefed4dgy1ftypk61m56j20fe0a1q4h.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://spumpkinblog.com/2018/08/01/gulp-之路/">
+
+
+
+
+
+  <title>gulp 之路 | Spumpkin's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?51393b20fed55da5e73d0255cf2eebcc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Spumpkin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">努力搬砖</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://spumpkinblog.com/2018/08/01/gulp-之路/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Spumpkin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Spumpkin's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">gulp 之路</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T21:08:16+08:00">
+                2018-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端构建工具/" itemprop="url" rel="index">
+                    <span itemprop="name">前端构建工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/01/gulp-之路/" class="leancloud_visitors" data-flag-title="gulp 之路">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                   分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="gulp-是什么"><a href="#gulp-是什么" class="headerlink" title="gulp 是什么"></a>gulp 是什么</h2><p>前端构建工具，gulp 是基于 Nodejs，自动化地完成 html/image、css、sass、less、javascript、coffee 等文件的测试、检查、合并、压缩、格式化、浏览器自动刷新、部署文件生成，并监听文件在改动后重复指定的这些步骤。借鉴了 Unix 操作系统的管道 （pipe） 思想，前一级的输出，直接变成后一级的输入，使得在操作上非常简单。流，Node 将几乎所有 IO 操作都抽象成了 stream 的操作，简单来说就是建立在面向对象基础上的一种抽象的处理数据的工具。</p>
+<h2 id="安装-gulp"><a href="#安装-gulp" class="headerlink" title="安装 gulp"></a>安装 gulp</h2><h3 id="全局安装-gulp"><a href="#全局安装-gulp" class="headerlink" title="全局安装 gulp"></a>全局安装 gulp</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g</span><br></pre></td></tr></table></figure>
+<p>如果不加 -g 则会安装到当前项目目录下，加上-g 就会安装到全局目录里。<br>可以通过 npm config get prefix 来查看全局目录是什么<br>也可以通过 npm config set prex “目录路径”来自行设置</p>
+<h3 id="生成配置文件-package-json"><a href="#生成配置文件-package-json" class="headerlink" title="生成配置文件 package.json"></a>生成配置文件 package.json</h3><p>package.json 是 npm 或 nodejs 都需要用到的配置文件<br>cd 进入到项目的根目录执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure></p>
+<h3 id="在项目内安装-gulp"><a href="#在项目内安装-gulp" class="headerlink" title="在项目内安装 gulp"></a>在项目内安装 gulp</h3><p>全局安装 gulp 是为了执行 gulp 任务，本地安装 gulp 则是为了调用 gulp 插件的功能。<br>–save-dev（-D）是开发时候依赖的库(如：gulp 工具)，会添加到 package.json 文件的 dependencies 内<br>–save（-S） 是你发布之后还依赖的库(如：vue 框架)，会添加到 package.json 文件的 devDeoendencies 内<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp --save-dev</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建-gulp-配置文件"><a href="#创建-gulp-配置文件" class="headerlink" title="创建 gulp 配置文件"></a>创建 gulp 配置文件</h3><p>在当前项目的根目录下手动创建 gulpfile.js，并在里面敲上自己的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 引入工具模块</span><br><span class="line">var gulp = require(&apos;gulp&apos;);</span><br><span class="line"></span><br><span class="line">// 创建任务 .task(任务名， 任务函数)</span><br><span class="line">gulp.task(&apos;greet&apos;, function() &#123;</span><br><span class="line">    console.log(&apos;Hello world!&apos;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>在终端输入 gulp 任务名，就会自动读取你的配置文件，执行你的任务。<br>运行结果：<br><img src="http://wx4.sinaimg.cn/mw690/7cefed4dgy1ftypk61m56j20fe0a1q4h.jpg" alt></p>
+<p>这样就完成了 gulp 的第一个任务了。</p>
+<h2 id="gulp-API"><a href="#gulp-API" class="headerlink" title="gulp API"></a>gulp API</h2><h3 id="gulp-task"><a href="#gulp-task" class="headerlink" title="gulp.task()"></a>gulp.task()</h3><p>gulp 模块的 task 方法，用于定义具体的任务。<br>gulp(任务名,[可选，当前任务需要依赖的其他任务，是一个数组],任务函数)<br>下面是一个非常简单的任务函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(&apos;greet&apos;, function()&#123;</span><br><span class="line">    console.log(&apos;Hello world!&apos;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>task 方法还可以指定按顺序运行的一组任务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 先指定 build 任务，按次序由 CSS、 JS、 imgs 三个任务所组成。</span><br><span class="line">gulp.task(&apos;build&apos;, [&apos;css&apos;, &apos;js&apos;, &apos;imgs&apos;]); // gulp build 运行</span><br><span class="line"></span><br><span class="line">// 也可以指定一个空的任务，再执行 CSS、 JS、 imgs 三个任务</span><br><span class="line">gulp.task(&apos;default&apos;, [&apos;css&apos;, &apos;js&apos;, &apos;imgs&apos;]) // gulp 运行</span><br></pre></td></tr></table></figure></p>
+<p>注意：由于每个任务都是异步调用，所以没办法保证 JS 任务的开始运行时间，正好是 CSS 任务运行结束时间。</p>
+<p>如果希望各个任务严格按次序运行，可以把前一个任务写成后一个任务的依赖模块：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(&apos;css&apos;, [&apos;greet&apos;], function() &#123;</span><br><span class="line">    // Deal with CSS here</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>上面代码表明，css 任务依赖 greet 任务，所以 css 这个任务一定会在 greet 任务运行完成后再运行。</p>
+<p>如果一个任务的名字为 default，就表明它是“默认任务”，在命令行直接输入 gulp 命令，就会运行该任务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(&apos;default&apos;, function() &#123;</span><br><span class="line">    // Your default task</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="gulp-src"><a href="#gulp-src" class="headerlink" title="gulp.src()"></a>gulp.src()</h3><p>gulp.src() 用来获取目标文件，进行操作。<br>首先来说一下 Grunt.js 和 Gulp.js 工作方式的一个区别：<br>Grunt 主要是以文件为媒介来运行它的工作流的，比如在 Grunt 中执行完一项任务后，会把结果写入到一个临时文件中，然后可以在这个临时文件内容的基础上执行其它任务，执行完成后又把结果写入到临时文件中，然后又以这个为基础继续执行其它任务…就这样反复下去。<br>而在 Gulp 中，使用的是 Nodejs 中的 stream(流)，首先获取到需要的 stream，然后可以通过 stream 的 pipe() 方法把流导入到你想要的地方，比如 Gulp 的插件中，经过插件处理后的流又可以继续导入到其他插件中，当然也可以把流写入到文件中。所以 Gulp 是以 stream 为媒介的，它不需要频繁的生成临时文件，这也是 Gulp 的速度比 Grunt 快的一个原因。<br>gulp.src() 方法正是用来获取流的，但要注意这个流里的内容不是原始的文件流，而是一个虚拟文件对象流(Vinyl files)，这个虚拟文件对象中存储着原始文件的路径、文件名、内容等信息，这个我们暂时不用去深入理解，你只需简单的理解可以用这个方法来读取你需要操作的文件就行了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 获取 src 下的 main.sass 文件</span><br><span class="line">gulp.src(&apos;src/main.sass&apos;)</span><br><span class="line"></span><br><span class="line">js/app.js   指定确切的文件名</span><br><span class="line">js/*.js     某个目录所有后缀名为 JS 的文件</span><br><span class="line">js/**/*.js  某个目录及其所有子目录中的所有后缀名为 JS 的文件</span><br><span class="line">!js/app.js  除了 js/app.js 以外的所有文件</span><br><span class="line">*.+(js|css) 匹配项目根目录下，所有后缀名为 JS 或 CSS</span><br></pre></td></tr></table></figure>
+<p>gulp 内部使用了 node-glob 模块来实现其文件匹配功能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">*　匹配文件路径中的0个或者多个字符，但不会匹配路径分隔符，除非路径分隔符出现在末尾</span><br><span class="line">** 匹配路径中的0个或多个目录及其子目录,需要单独出现，即它左右不能有其他东西了。如果出现在末尾，也能匹配文件。</span><br><span class="line">?  匹配文件路径中的一个字符（不会匹配路径分隔符）</span><br><span class="line">[...] 匹配方括号中出现字符的任意一个，当括号内第一个字符为 ^ 或 ！ 时，表示不匹配方括号中任意的字符。</span><br><span class="line">！(pattern|pattern) 不匹配括号内容任一模式</span><br><span class="line">? (pattern|pattern) 匹配括号内任一模式 0 或 1 次</span><br><span class="line">+ (pattern|pattern) 匹配括号内任一模式至少 1 次</span><br><span class="line">* (pattern|pattern) 匹配括号内任一模式 0 或多次</span><br><span class="line">@ (pattern|pattern) 匹配括号内任意模式 1 次</span><br><span class="line"></span><br><span class="line">例子如下：</span><br><span class="line">*        能匹配到 a.js 、x.y 、 abc 、abc/ ，但是不能匹配 a/b.js</span><br><span class="line">*.*      能匹配到 a.js 、style.css 、a.b 、 x.y</span><br><span class="line">*/*/*.js 能匹配到 a/b/c.js 、x/y/z.js，不能匹配到 a/b.js 、a/b/c/d.js</span><br><span class="line">**       能匹配到 abc 、a/b.js 、a/b/c.js 、x/y/z 、x/y/z/a.b ，能用来匹配所以有的目录和文件</span><br><span class="line">**/*.js  能匹配到 foo.js 、a/foo.js 、a/b/foo.js 、a/b/c/foo.js</span><br><span class="line">a/**/z   能匹配到 a/z 、a/b/z 、a/b/c/z 、a/d/g/h/j/z</span><br><span class="line">a/**b/z  能匹配到 a/b/z 、a/ab/z 、但不能匹配 a/b/ab/z，因为只有单 ** 出现才能匹配多级目录</span><br><span class="line">?.js     能匹配到 a.js 、b.js 、 c.js</span><br><span class="line">a??      能匹配到 a.b 、 abc ，但不能匹配 ab/ ，因为它不会匹配路径分隔符</span><br><span class="line">[xyz].js 能匹配到 x.js 、y.js 、z.js ，不能匹配 xy.js 、xyz.js等，整个中括号只代表一个字符</span><br><span class="line">[^xyz].js能匹配到 a.js 、b.js 、c.js ，不能匹配 x.js 、y.js 、z.js</span><br></pre></td></tr></table></figure></p>
+<p>有多种匹配还可以用数组来指定多个成员：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 先匹配目录下所有的 JavaScript 文件，然后排除后缀为 .min.js 的文件</span><br><span class="line">gulp.src([&apos;js/**/*.js&apos;, &apos;!js/**/*.min.js&apos;])</span><br><span class="line"></span><br><span class="line">// 注意： 使用排除模式时，即使用 ！ ，不能在数组中的第一个元素中使用。</span><br><span class="line"></span><br><span class="line">gulp.src([&apos;!js/**/*.min,js&apos;], &apos;js/**/*.js&apos;); // 不会排除任何文件</span><br></pre></td></tr></table></figure></p>
+<p>此外，还可以使用展开模式。<br>展开模式以花括号作为定界符，根据里面的内容，会展开多个模式，最后匹配的结果为所有展开的模式相加起来得到的结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a&#123;b,c&#125;d 展开为 abd 、acd</span><br><span class="line">a&#123;b,&#125;c  展开为 abc 、ac</span><br><span class="line">a&#123;0..3&#125;d 展开为 a0d 、a1d 、a2d 、a3d</span><br><span class="line">a&#123;b,c&#123;d,e&#125;f&#125;g 展开为 abg 、acdfg 、acefg</span><br><span class="line">a&#123;b,c&#125;d&#123;e,f&#125;g 展开为 abdeg 、acdeg 、abdfg 、acdfg</span><br></pre></td></tr></table></figure></p>
+<h3 id="gulp-dest"><a href="#gulp-dest" class="headerlink" title="gulp.dest()"></a>gulp.dest()</h3><p>gulp.dest() 用来传送文件，同时写入文件到指定目录。<br>gulp 的使用流程一般是这样子的：<br>首先通过 gulp.src() 方法获取到我们想要处理的文件流，然后把文件流通过 pipe() 方法导入到 gulp 的插件中，最后把经过插件处理后的流再通过 pipe()方法 导入到 gulp.dest() 中，gulp.dest() 方法则把流中的内容写入到文件中，这里首先需要弄清楚的一点是，我们给 gulp.dest() 传入的路径参数，只能用来指定要生成的文件的目录，而不能指定生成文件的文件名，它生成文件的文件名使用的是导入到它的文件流自身的文件名，所以生成的文件名是由导入到它的文件流决定的，即使我们给它传入一个带有文件名的路径参数，然后它也会把这个文件名当做是目录名，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var gulp = require(&apos;gulp&apos;);</span><br><span class="line"></span><br><span class="line">gulp.src(&apos;script/jquery.js&apos;)</span><br><span class="line">    .pipe(gulp.dest(&apos;dist/foo.js&apos;)); // foo.js 会认为是一个目录名，而不是文件名</span><br><span class="line">// 最终生成文件路径为 dist/foo.js/jquery.js，而不是 dist/foo.js</span><br></pre></td></tr></table></figure></p>
+<p>gulp.dest(path) 生成的文件路径是我们传入的 path 参数后面再加上 gulp.src() 中有通配符开始出现的那部分路径。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var gulp = require(&apos;gulp&apos;);</span><br><span class="line"> </span><br><span class="line">gulp.src(&apos;script/**/*.js&apos;) // 通配符开始出现的那部分路径为 **/*.js</span><br><span class="line">    .pipe(gulp.dest(&apos;dist&apos;)); // 最后生成的文件路径为 dist/**/*.js</span><br><span class="line">    </span><br><span class="line">gulp.src(&apos;script/js/jquery.js&apos;) // 没有通配符出现的情况</span><br><span class="line">    .pipe(gulp.dest(&apos;dist&apos;)); // 最后生成的文件路径为 dist/jquery.js</span><br><span class="line"></span><br><span class="line">gulp.src(&apos;script/**/*.js&apos;) // 通配符开始出现的那部分路径为 **/*.js</span><br><span class="line">    // 假设匹配到的文件路径为 script/js/main.js</span><br><span class="line">    .pipe(gulp.dest(&apos;dist&apos;)) // 最后生成的文件路径为 dist/js/main.js</span><br><span class="line"></span><br><span class="line">gulp.src(&apos;script/*&apos;) // 通配符开始出现的那部分路径为 *</span><br><span class="line">    // 假设匹配到的文件路径为 script/main.js</span><br><span class="line">    .pipe(gulp.dest(&apos;dist&apos;)); // 最后生成的文件路径为 dist/main.js</span><br></pre></td></tr></table></figure></p>
+<p>通过制定 gulp.src() 方法配置参数中的 base 属性，我们可以更灵活的来改变 gulp.dest() 生成的文件路径。<br>当我们没有在 gulp.src() 方法中配置 base 属性时，base 的默认值为通配符开始出现之前那部分路径，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gulp.src(&apos;app/src/**/*.js&apos;) // 此时的 base 的值为 app/src</span><br></pre></td></tr></table></figure></p>
+<p>所以，gulp.dest() 生成的文件路径也可以理解成，我们给 gulp.dest() 中传入的路径替换掉了 gulp.src() 中的 base 路径，最终得到了生成的文件路径。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gulp.src(&apos;app/src/**/*.css&apos;) // 此时的 base 为 app/src</span><br><span class="line">    // 假设匹配到的文件路径为 app/src/css/main.css</span><br><span class="line">    .pipe(gulp.dest(&apos;dist&apos;)); // 用 dist 替换掉 base 路径，最终路径为 dist/css/main.css</span><br><span class="line"></span><br><span class="line">// 修改 base 路径</span><br><span class="line">gulp.src(app/src/**/*.css, &#123;base: &apos;app&apos;&#125;) // 此时的 base 为 app</span><br><span class="line">    // 假设匹配到的文件路径为 app/src/css/main.css</span><br><span class="line">    .pipe(gulp.dest(&apos;dist&apos;)); // 此时生成的文件路径为 dist/src/css/main.css</span><br></pre></td></tr></table></figure></p>
+<p>用 gulp.dest() 把文件流写入文件，文件流仍然可以继续使用。<br>所以可以重复的发送传递给它的数据，因此可以将文件传送到多个目录中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gulp.src(&apos;./client/template/*.jade&apos;)</span><br><span class="line">    .pipe(jade())</span><br><span class="line">    .pipe(gulp.dest(&apos;./build/templates&apos;))</span><br><span class="line">    .pipe(minify())</span><br><span class="line">    .pipe(gulp.dest(&apos;./build/minified_templates&apos;))</span><br></pre></td></tr></table></figure></p>
+<h3 id="gulp-watch"><a href="#gulp-watch" class="headerlink" title="gulp.watch()"></a>gulp.watch()</h3><p>gulp.watch() 用来监视文件的变化，当文件发生变化后，我们可以利用它来执行相应的任务，例如文件压缩等。</p>
+<p>1.gulp.watch(匹配项，执行)<br>无条件自动进行的，只要任务执行了，它就会自动开始工作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(&apos;uglify&apos;, function() &#123;</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;reload&apos;, function() &#123;</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br><span class="line">gulp.watch(&apos;js/**/*.js&apos;, [&apos;uglify&apos;, &apos;reload&apos;]);</span><br></pre></td></tr></table></figure></p>
+<p>这是有条件的，只有 watch 任务运行了，监视才开始，gulp.watch() 会自动进行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(&apos;watch&apos;, function() &#123;</span><br><span class="line">    gulp.watch(&apos;js/**/*.js&apos;, [&apos;uglify&apos;, &apos;reload&apos;])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>2.gulp.watch(匹配项，回调函数)<br>每当监视的文件发生变化时，就会调用这个函数,并且会给它传入一个对象，该对象包含了文件变化的一些信息，type 属性为变化的类型，可以是 added, changed, deleted；path 属性为发生变化的文件的路径。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gulp.watch(&apos;js/**/*js&apos;, function(event) &#123;</span><br><span class="line">    console.log(event.type); // 变化类型 added 为新增，deleted 为删除，changed 为改变</span><br><span class="line">    console.log(event.path); // 变化的文件路径</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="完整示例"><a href="#完整示例" class="headerlink" title="完整示例"></a>完整示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">// 引入工具模块</span><br><span class="line">var gulp = require(&apos;gulp&apos;); // 引入 gulp</span><br><span class="line">    html = require(&apos;gulp-minify-html&apos;); // 引入 gulp-minify-html 用于压缩 html</span><br><span class="line">    minify = require(&apos;gulp-minify-css&apos;); // 引入 gulp-minify-css 用于压缩 CSS</span><br><span class="line">    uglify = require(&apos;gulp-uglify&apos;); // 引入 gulp-uglify 用于压缩 JS</span><br><span class="line">    jshint = require(&apos;gulp-jshint&apos;); // 引入 gulp-jshint 用于检查 JS 代码</span><br><span class="line">    sass = require(&apos;gulp-sass&apos;); // 引入 gulp-sass，用于编译.sass 文件成 .css 文件</span><br><span class="line">    rename = require(&apos;gulp-rename&apos;); // 引入 gulp-rename 用于给文件重命名</span><br><span class="line">    concat = require(&apos;gulp-concat&apos;); // 引入 gulp-concat 用来合并 JS 或 CSS 文件</span><br><span class="line">    connect = require(&apos;gulp-connect&apos;); // 引入 gulp-connect 用来开启本地服务器以及自动刷新</span><br><span class="line"></span><br><span class="line">// 创建压缩 HTML 任务</span><br><span class="line">gulp.task(&apos;html&apos;, function() &#123;</span><br><span class="line">    gulp.src(&apos;src/*.html&apos;)</span><br><span class="line">        .pipe(html())</span><br><span class="line">        .pipe(gulp.dest(&apos;dist&apos;))</span><br><span class="line">        .pipe(connect.reload()) // 指定被刷新的 html 路径</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 创建压缩 CSS 任务</span><br><span class="line">gulp.task(&apos;css&apos;, function() &#123;</span><br><span class="line">    gulp.src(&apos;src/**/*.css&apos;)</span><br><span class="line">        .pipe(css())</span><br><span class="line">        .pipe(gulp.dest(&apos;dist&apos;))</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 创建压缩 JS 任务</span><br><span class="line">gulp.task(&apos;script&apos;, function() &#123;</span><br><span class="line">    gulp.src(&apos;src/js/*.js&apos;) // 1.找到文件</span><br><span class="line">        .pipe(uglify(&#123; mangle: false &#125;)) // 2.压缩文件</span><br><span class="line">        .pipe(gulp.dest(&apos;dist/js&apos;)) // 3.另存压缩后的文件路径</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 创建编译 sass 任务</span><br><span class="line">gulp.task(&apos;sass&apos;, function() &#123;</span><br><span class="line">    gulp.src(&apos;src/main.sass&apos;) // 目标文件</span><br><span class="line">        .pipe(sass()) // 编译成 css 文件</span><br><span class="line">        .pipe(rename(&apos;myCss.css&apos;)) // 重命名为 myCss.css</span><br><span class="line">        .pipe(gulp.dest(&apos;style/css&apos;), console.log(&apos;OK&apos;)); // 输出到指定目录</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 创建本地服务器运行</span><br><span class="line">gulp.task(&apos;server&apos;, function() &#123;</span><br><span class="line">    connect.server(&#123;</span><br><span class="line">        port:8080, // 服务器的端口号</span><br><span class="line">        root: &apos;./dist&apos;, // 服务器运行的根目录</span><br><span class="line">        livereload:true // 是否自动监听，true表明自动监听</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 创建自动监视任务</span><br><span class="line">gulp.task(&apos;watch&apos;, function() &#123;</span><br><span class="line">    gulp.watch(&apos;src/*.html&apos;, [&apos;html&apos;]); // 监听自动刷新，但是要保存 2 次才真正刷新了。。。</span><br><span class="line">    gulp.watch(&apos;src/**/*.sass&apos;, [&apos;sass&apos;]);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">gulp.task(&apos;default&apos;, [&apos;script&apos;, &apos;auto&apos;, &apos;css&apos;])</span><br></pre></td></tr></table></figure>
+<h2 id="实时刷新问题"><a href="#实时刷新问题" class="headerlink" title="实时刷新问题"></a>实时刷新问题</h2><p>html 的压缩有两种 gulp 插件，一种是 gulp-minify-html，另外一种是 gulp-htmlmin。<br>在对 html 的实时刷新问题上，经过测试，使用 gulp-htmlmin 比较靠谱。测试如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">var gulp = require(&apos;gulp&apos;);</span><br><span class="line">// var html = require(&apos;gulp-minify-html&apos;); // 实时刷新要保存 2 次才刷新到，偶尔会错乱</span><br><span class="line">var html = require(&apos;gulp-htmlmin&apos;); // 保存会跳到空页面，因为执行的顺序不对</span><br><span class="line">var connect = require(&apos;gulp-connect&apos;);</span><br><span class="line"></span><br><span class="line">// 对 html 进行实时刷新，执行顺序错误</span><br><span class="line">gulp.task(&apos;html&apos;, function() &#123;</span><br><span class="line">    gulp.src(&apos;src/*.html&apos;)</span><br><span class="line">        .pipe(html())</span><br><span class="line">        .pipe(gulp.dest(&apos;dist&apos;)) // 保存到新位置</span><br><span class="line">        .pipe(connect.reload()) // 进行刷新</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 对 html 进行实时刷新，应该先刷新，再保存</span><br><span class="line">gulp.task(&apos;html&apos;, function() &#123;</span><br><span class="line">    gulp.src(&apos;src/*.html&apos;)</span><br><span class="line">        .pipe(html())</span><br><span class="line">        .pipe(connect.reload()) // 进行刷新</span><br><span class="line">        .pipe(gulp.dest(&apos;dist&apos;)) // 保存到新位置</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 实时监听</span><br><span class="line">gulp.watch(&apos;scr/*.html&apos;, [html]);</span><br></pre></td></tr></table></figure></p>
+<p>经过对执行顺序的调整后，gulp-htmlmin 可以正常实时刷新，但是 gulp-minify-html 还是存在相同问题。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/29/BFC-块级格式化上下文/" rel="next" title="BFC(块级格式化上下文)">
+                <i class="fa fa-chevron-left"></i> BFC(块级格式化上下文)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/var的重要性/" rel="prev" title="var的重要性">
+                var的重要性 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODQ0Ny8xNDk3NQ=="></div>
+    
+ 
+  </div>
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/uploads/head.jpg" alt="Spumpkin">
+          <p class="site-author-name" itemprop="name">Spumpkin</p>
+           
+              <p class="site-description motion-element" itemprop="description">个人技术博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gulp-是什么"><span class="nav-number">1.</span> <span class="nav-text">gulp 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-gulp"><span class="nav-number">2.</span> <span class="nav-text">安装 gulp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局安装-gulp"><span class="nav-number">2.1.</span> <span class="nav-text">全局安装 gulp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成配置文件-package-json"><span class="nav-number">2.2.</span> <span class="nav-text">生成配置文件 package.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在项目内安装-gulp"><span class="nav-number">2.3.</span> <span class="nav-text">在项目内安装 gulp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-gulp-配置文件"><span class="nav-number">2.4.</span> <span class="nav-text">创建 gulp 配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gulp-API"><span class="nav-number">3.</span> <span class="nav-text">gulp API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-task"><span class="nav-number">3.1.</span> <span class="nav-text">gulp.task()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-src"><span class="nav-number">3.2.</span> <span class="nav-text">gulp.src()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-dest"><span class="nav-number">3.3.</span> <span class="nav-text">gulp.dest()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-watch"><span class="nav-number">3.4.</span> <span class="nav-text">gulp.watch()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整示例"><span class="nav-number">4.</span> <span class="nav-text">完整示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实时刷新问题"><span class="nav-number">5.</span> <span class="nav-text">实时刷新问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Spumpkin</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  访问用户:<span id="busuanzi_value_site_uv"></span>
+  <div class="powered-by"></div>
+<i class="fa fa-eye"></i>
+<span id="busuanzi_container_site_pv">
+  访问量:<span id="busuanzi_value_site_pv"></span>次
+</span>
+</span></div>
+
+<div class="theme-info">
+  <i class="fa fa-file-word-o"></i>
+  <span class="post-count">全站共  字</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("OmrzeBPrdmOT99EHk3FK8HSE-gzGzoHsz", "nAITf6GVREXfSDVLJXWBijtN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

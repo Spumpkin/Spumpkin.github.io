@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="JavaScript,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="数组是一个对象的集合，里边的对象可以是不同类型的（字符串、数值、对象等）。数组的每一个成员对象都有一个“下标”，用来表示它在数组中的位置，下标是从 0 开始的。 创建数组方法一（ Array 构造函数）1．定义一个空数组（以下 new 均可以省略）1var arr = new Array(); 2．定义时可指定有 n 个元素的数组123456// 如果 n 不是整数将会报 RangeError:">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组">
+<meta property="og:url" content="http://spumpkinblog.com/2017/08/04/数组/index.html">
+<meta property="og:site_name" content="Spumpkin&#39;s blog">
+<meta property="og:description" content="数组是一个对象的集合，里边的对象可以是不同类型的（字符串、数值、对象等）。数组的每一个成员对象都有一个“下标”，用来表示它在数组中的位置，下标是从 0 开始的。 创建数组方法一（ Array 构造函数）1．定义一个空数组（以下 new 均可以省略）1var arr = new Array(); 2．定义时可指定有 n 个元素的数组123456// 如果 n 不是整数将会报 RangeError:">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-04T17:00:46.183Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数组">
+<meta name="twitter:description" content="数组是一个对象的集合，里边的对象可以是不同类型的（字符串、数值、对象等）。数组的每一个成员对象都有一个“下标”，用来表示它在数组中的位置，下标是从 0 开始的。 创建数组方法一（ Array 构造函数）1．定义一个空数组（以下 new 均可以省略）1var arr = new Array(); 2．定义时可指定有 n 个元素的数组123456// 如果 n 不是整数将会报 RangeError:">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://spumpkinblog.com/2017/08/04/数组/">
+
+
+
+
+
+  <title>数组 | Spumpkin's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?51393b20fed55da5e73d0255cf2eebcc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Spumpkin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">努力搬砖</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://spumpkinblog.com/2017/08/04/数组/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Spumpkin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Spumpkin's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数组</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-04T12:32:26+08:00">
+                2017-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/数组/" itemprop="url" rel="index">
+                    <span itemprop="name">数组</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/04/数组/" class="leancloud_visitors" data-flag-title="数组">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                   分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数组是一个对象的集合，里边的对象可以是不同类型的（字符串、数值、对象等）。<br>数组的每一个成员对象都有一个“下标”，用来表示它在数组中的位置，下标是从 0 开始的。</p>
+<h2 id="创建数组方法一（-Array-构造函数）"><a href="#创建数组方法一（-Array-构造函数）" class="headerlink" title="创建数组方法一（ Array 构造函数）"></a>创建数组方法一（ Array 构造函数）</h2><p>1．定义一个空数组（以下 new 均可以省略）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var arr = new Array();</span><br></pre></td></tr></table></figure></p>
+<p>2．定义时可指定有 n 个元素的数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 如果 n 不是整数将会报 RangeError: Invalid array length 错误</span><br><span class="line">var arr = new Array(n);</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">var arr = Array(n);</span><br></pre></td></tr></table></figure></p>
+<p>注意： 创建的数组长度 n 必须为一个数字，否则，将会创建一个只有单个（所输入的）元素的数组</p>
+<p>3．定义时可直接初始化数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var arr = new Array(&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建数组方法二（数组字面量表示法，常用）"><a href="#创建数组方法二（数组字面量表示法，常用）" class="headerlink" title="创建数组方法二（数组字面量表示法，常用）"></a>创建数组方法二（数组字面量表示法，常用）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;]; // 创建一个包含 3 个字符串的数组</span><br><span class="line">var arr = [1.1, true, &quot;a&quot;];         // 3 个不同类型的元素</span><br><span class="line">var arr = [];                       // 创建一个空数组</span><br><span class="line">var arr = [1,2,]    // 这样会创建一个包含 2 或 3 项的数组，不要这样创建！</span><br><span class="line">var arr = [,,,,,];  // 这样会创建一个包含 5 或 6 项的数组，不要这样创建！</span><br><span class="line"></span><br><span class="line">var num = 100;</span><br><span class="line">var arr = [num, num+1, num+2]; // 数组中的值不一定要是常量，可以是任意的表达式</span><br></pre></td></tr></table></figure>
+<p>注意： var arr = [4] 和 var arr = new Array(4) 是不等效的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr1 = [4];      // [4]             length: 1</span><br><span class="line">var arr2 = Array(4); // (4) [empty × 4] length: 4</span><br></pre></td></tr></table></figure></p>
+<p>前者是指创建了一个包含 4 的数组，后者指的是数组长度为 4，<br>所以使用字面值(literal)的方式应该不仅仅是便捷，同时也不易踩坑</p>
+<h2 id="读取和设置数组"><a href="#读取和设置数组" class="headerlink" title="读取和设置数组"></a>读取和设置数组</h2><p>数组名[下标] = 值<br>如果下标为负数或者大于下标数均为 undefined</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;]; // 定义一个字符串数组</span><br><span class="line">alert(arr[0]);                      // 显示第一项</span><br><span class="line">arr[2] = &quot;black&quot;;                   // 修改第三项</span><br><span class="line">arr[3] = &quot;brown&quot;;                   // 新增第四项</span><br></pre></td></tr></table></figure>
+<h2 id="数组的属性（length）"><a href="#数组的属性（length）" class="headerlink" title="数组的属性（length）"></a>数组的属性（length）</h2><p>用法：&lt;数组对象&gt; . length<br>返回：数组的长度，即数组里有多少个元素。它等于数组里最后一个元素的下标加一（即从 1 开始）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];</span><br><span class="line">var names = [];</span><br><span class="line">alert(arr.length);      // 3</span><br><span class="line">alert(names.length);    // 0</span><br></pre></td></tr></table></figure>
+<p>length 特殊的用法：可以通过设置 length 值来从数组末尾删除项或添加新项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];   // 创建一个数组长度为3的数组</span><br><span class="line"></span><br><span class="line">//删除项</span><br><span class="line">arr.length = 2;     // 将数组长度改为2</span><br><span class="line">alert(arr[2]);      // undefined 第三项已经给删除了</span><br><span class="line"></span><br><span class="line">//增加项</span><br><span class="line">arr.length = 4;     // 将数组长度增加到4</span><br><span class="line">alert(arr[3]);      // undefined 增加了第四项，但是没有赋值</span><br></pre></td></tr></table></figure>
+<p>length 属性的使用：因为索引值(下标)始终是 length-1，因此下一个新项的位置就是 length。每增加一项 length 属性都会自动更新以反映这一变化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;]; </span><br><span class="line">arr[arr.length] = &quot;black&quot;;</span><br><span class="line">arr[arr.length] = &quot;brown&quot;;</span><br></pre></td></tr></table></figure>
+<h2 id="转换方法"><a href="#转换方法" class="headerlink" title="转换方法"></a>转换方法</h2><ul>
+<li>toString() 将某个值转化为字符串的方法，数组内每个值以逗号分隔组成一个字符串</li>
+<li>valueOf()  返回的是数组</li>
+<li>toLocaleString() 同样返回字符串，不同的是，调用的是每一项的 toLocaleString() 方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];</span><br><span class="line">alert(arr.toString());  // red,blue,green</span><br><span class="line">alert(arr.valueOf());   // red,blue,green</span><br><span class="line">alert(arr);             // red,blue,green</span><br><span class="line"></span><br><span class="line">var arr = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];</span><br><span class="line">console.log(arr.toString());  // red,blue,green</span><br><span class="line">console.log(arr.valueOf());   // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;]</span><br><span class="line">console.log(arr);             // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;]</span><br><span class="line"></span><br><span class="line">var person1 = &#123;</span><br><span class="line">    toLocaleString : function() &#123;</span><br><span class="line">        return &apos;Esyy&apos;;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    toString : function() &#123;</span><br><span class="line">        return &apos;John&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person2 = &#123;</span><br><span class="line">    toLocaleString : function() &#123;</span><br><span class="line">        return &apos;Gril&apos;;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    toString : function() &#123;</span><br><span class="line">        return &apos;Boy&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var people = [person1, person2];</span><br><span class="line">alert(people);                  // John,Boy</span><br><span class="line">alert(people.toString());       // John,Boy</span><br><span class="line">alert(people.toLocaleString()); // Esyy,Gril</span><br></pre></td></tr></table></figure>
+<h2 id="延伸：alert-和-console-log-区别"><a href="#延伸：alert-和-console-log-区别" class="headerlink" title="延伸：alert 和 console.log 区别"></a>延伸：alert 和 console.log 区别</h2><h3 id="alert"><a href="#alert" class="headerlink" title="alert()"></a>alert()</h3><p>1．只能输出 string,如果 alert 填写的是对象则会自动调用 toString() 方法<br>2．不支持多个参数,只能输出第一个值</p>
+<h3 id="console-log"><a href="#console-log" class="headerlink" title="console.log()"></a>console.log()</h3><p>1．可以打印任何类型的数据<br>2．支持多个参数的写法</p>
+<h2 id="检测数组"><a href="#检测数组" class="headerlink" title="检测数组"></a>检测数组</h2><h3 id="1．instanceof-操作符"><a href="#1．instanceof-操作符" class="headerlink" title="1．instanceof 操作符"></a>1．instanceof 操作符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (value instanceof Array) &#123;</span><br><span class="line">    // 对数组执行某些操作</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>局限性：instanceof 操作符的问题在于，它假定只有一个全局执行环境。如果网页中包含多个框架，那么实际上就存在两个以上不同的全局执行环境，那么使用 instanceof 操作符可能就无法得到理想的结果。</p>
+<h3 id="2．ECMAScript-5-的-isArray-函数"><a href="#2．ECMAScript-5-的-isArray-函数" class="headerlink" title="2．ECMAScript 5 的 isArray 函数"></a>2．ECMAScript 5 的 isArray 函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (Array.isArray(value)) &#123;</span><br><span class="line">    // 对数组执行某些操作</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>举一个栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];</span><br><span class="line"></span><br><span class="line">if (Array.isArray(arr)) &#123;</span><br><span class="line">    return Array.isArray(arr);</span><br><span class="line">&#125;</span><br><span class="line">// JS 错误：SyntaxError: Illegal return statement</span><br></pre></td></tr></table></figure></p>
+<p>原因是：<font color="#FF0033" size="+1">在 JS 中 return 语句只能放在 function 中，如果不是在一个 function 中弹出如上错误。</font></p>
+<p>下面演示一下正确的打开姿势：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">window.onload = function() &#123;</span><br><span class="line">    if (Array.isArray(arr)) &#123;</span><br><span class="line">        return Array.isArray(arr); // true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>局限性：只支持 IE9+、 Firefox 4+、Safari 5+、Opera 10.5+ 和 Chrome<br>那么 IE9 以下以及其他不兼容的浏览器怎么办，看看下面的原生方法</p>
+<h3 id="3．-原生的-toString-方法"><a href="#3．-原生的-toString-方法" class="headerlink" title="3． 原生的 toString() 方法"></a>3． 原生的 toString() 方法</h3><p>在任何值上调用 Object 原生的 toString() 方法，都会返回一个 [Object NativeConstructorName] 格式的字符串。<br>举个栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(Object.prototype.toString.call(value)); // [object Array]</span><br></pre></td></tr></table></figure></p>
+<p>因为原生数组的构造函数名与全局作用域无关，所以就可以用这个来创建一个检测数组的函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isArray(value) &#123;</span><br><span class="line">    return Object.prototype.toString.call(value) == &apos;[object Array]&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<font color="#FF0033" size="+1">注意：Object 的 toString() 方法不能检测非原生构造函数的构造函数名，且 Object.prototype.toString() 方法本身没有被修改过，是原生版本</font>
+
+<p>因为开发人员定义的任何构造函数都将返回 [object Object]，所以有些 JavaScript 库会包含下面类似代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 检测原生 JSON 对象</span><br><span class="line">var isNativeJSON = window.JSON &amp;&amp; Object.prototype.toString.call(JSON) == &apos;[object JSON]&apos;;</span><br><span class="line">console.log(isNativeJSON); // true</span><br></pre></td></tr></table></figure></p>
+<h2 id="封装检测数组的通用方法"><a href="#封装检测数组的通用方法" class="headerlink" title="封装检测数组的通用方法"></a>封装检测数组的通用方法</h2><p>由于 Array.isArray() 是封装在浏览器中，运行效率比较高，所以当真正需要检测一个变量类型时，先会检测浏览器是否支持 Array.isArray(), 之后再用 Obejct.prototype.toString() 方法。<br>所以周全的封装的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;]; </span><br><span class="line">function isArray(value) &#123;</span><br><span class="line">    if (typeof Array.isArray === &quot;function&quot;) &#123;</span><br><span class="line">        return Array.isArray(value);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return Object.prototype.toString.call(value) === &quot;[object Array]&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">alert(isArray(arr));      // true</span><br></pre></td></tr></table></figure>
+<h2 id="延伸：toString-方法来测试某个值是不是原生函数或正则表达式"><a href="#延伸：toString-方法来测试某个值是不是原生函数或正则表达式" class="headerlink" title="延伸：toString() 方法来测试某个值是不是原生函数或正则表达式"></a>延伸：toString() 方法来测试某个值是不是原生函数或正则表达式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 是否原生函数</span><br><span class="line">function isFunction(value) &#123;</span><br><span class="line">    return Object.prototype.toString.call(value) == &apos;[object Function]&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 是否正则表达式</span><br><span class="line">function isRegExp(value) &#123;</span><br><span class="line">    return Object.prototype.toString.call(value) == &apos;[object RegExp]&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/08/04/数组/">数组</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Spumpkin 的个人博客">Spumpkin</a></p>
+  <p><span>发布时间:</span>2017年08月04日 - 12:08</p>
+  <p><span>最后更新:</span>2018年12月05日 - 01:12</p>
+  <p><span>原始链接:</span><a href="/2017/08/04/数组/" title="数组">http://spumpkinblog.com/2017/08/04/数组/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://spumpkinblog.com/2017/08/04/数组/" aria-label="复制成功！"></i></span>
+  </p>
+  <!--<p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a>转载请保留原文链接及作者</p>-->   
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/17/CSS3动画animation-timing-function中的cubic-bezier(n,n,n,n)/" rel="next" title="CSS3动画animation-timing-function中的cubic-bezier(n,n,n,n)">
+                <i class="fa fa-chevron-left"></i> CSS3动画animation-timing-function中的cubic-bezier(n,n,n,n)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/23/数组的方法/" rel="prev" title="数组的方法">
+                数组的方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODQ0Ny8xNDk3NQ=="></div>
+    
+ 
+  </div>
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/uploads/head.jpg" alt="Spumpkin">
+          <p class="site-author-name" itemprop="name">Spumpkin</p>
+           
+              <p class="site-description motion-element" itemprop="description">个人技术博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建数组方法一（-Array-构造函数）"><span class="nav-number">1.</span> <span class="nav-text">创建数组方法一（ Array 构造函数）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建数组方法二（数组字面量表示法，常用）"><span class="nav-number">2.</span> <span class="nav-text">创建数组方法二（数组字面量表示法，常用）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取和设置数组"><span class="nav-number">3.</span> <span class="nav-text">读取和设置数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的属性（length）"><span class="nav-number">4.</span> <span class="nav-text">数组的属性（length）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换方法"><span class="nav-number">5.</span> <span class="nav-text">转换方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸：alert-和-console-log-区别"><span class="nav-number">6.</span> <span class="nav-text">延伸：alert 和 console.log 区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#alert"><span class="nav-number">6.1.</span> <span class="nav-text">alert()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#console-log"><span class="nav-number">6.2.</span> <span class="nav-text">console.log()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测数组"><span class="nav-number">7.</span> <span class="nav-text">检测数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1．instanceof-操作符"><span class="nav-number">7.1.</span> <span class="nav-text">1．instanceof 操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2．ECMAScript-5-的-isArray-函数"><span class="nav-number">7.2.</span> <span class="nav-text">2．ECMAScript 5 的 isArray 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3．-原生的-toString-方法"><span class="nav-number">7.3.</span> <span class="nav-text">3． 原生的 toString() 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装检测数组的通用方法"><span class="nav-number">8.</span> <span class="nav-text">封装检测数组的通用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸：toString-方法来测试某个值是不是原生函数或正则表达式"><span class="nav-number">9.</span> <span class="nav-text">延伸：toString() 方法来测试某个值是不是原生函数或正则表达式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Spumpkin</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  访问用户:<span id="busuanzi_value_site_uv"></span>
+  <div class="powered-by"></div>
+<i class="fa fa-eye"></i>
+<span id="busuanzi_container_site_pv">
+  访问量:<span id="busuanzi_value_site_pv"></span>次
+</span>
+</span></div>
+
+<div class="theme-info">
+  <i class="fa fa-file-word-o"></i>
+  <span class="post-count">全站共  字</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("OmrzeBPrdmOT99EHk3FK8HSE-gzGzoHsz", "nAITf6GVREXfSDVLJXWBijtN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
